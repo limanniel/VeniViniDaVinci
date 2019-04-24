@@ -15,20 +15,15 @@ Text::~Text()
 
 void Text::Render()
 {
-	if (!_hidden) 
-	{
+	if (!_hidden) {
 		if (_hoovered)
 		{
 			SDL_RenderCopy(_renderer, _altTexture, nullptr, _position);
 		}
-		else 
+		else
 		{
 			SDL_RenderCopy(_renderer, _texture, nullptr, _position);
 		}
-	}
-	else 
-	{
-		
 	}
 }
 
@@ -42,7 +37,7 @@ void Text::CreateText(const char* text, SDL_Color color, SDL_Color altColor)
 	surface = TTF_RenderText_Solid(_font, _text, _color);
 	_texture = SDL_CreateTextureFromSurface(_renderer, surface);
 
-	// Create Alt-Texture if AltColour differs from main colour
+	// Check whether altColour differs from mainColour, if yes then create altTexture
 	if (
 		_color.r != _altColor.r ||
 		_color.g != _altColor.g ||
@@ -76,6 +71,11 @@ void Text::ChangePosition(int xPos, int yPos)
 void Text::SetHooveredState(bool state)
 {
 	_hoovered = state;
+}
+
+void Text::SetTriggered(bool state)
+{
+	_triggered = state;
 }
 
 void Text::SetHidden(bool state)

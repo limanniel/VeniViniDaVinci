@@ -59,45 +59,80 @@ void GameScreenMainMenu::Render()
 
 void GameScreenMainMenu::Update(float deltaTime, SDL_Event event)
 {
+	// Grab mouse position and make SourceRect out of it.
 	int x, y;
 	SDL_GetMouseState(&x, &y);
 	SDL_Rect mouseRect = { x, y, 16, 16 };
 
+	UpdateButtons(mouseRect, event);
+
+	
+}
+
+void GameScreenMainMenu::UpdateButtons(SDL_Rect& mouse, SDL_Event event)
+{
 	for (unsigned int i = 0; i < 6; i++)
 	{
-		// If mouse hoovered over option, highlight and activate according case upon LMB press
-		if (!_mainMenuOptions[i]->GetHiddenState() && Collisions::Instance()->Box(mouseRect, *_mainMenuOptions[i]->GetPosition())) {
+		// Check if cursor is hoovering over button
+		if (Collisions::Instance()->Box(mouse, *_mainMenuOptions[i]->GetPosition())) {
 			_mainMenuOptions[i]->SetHooveredState(true);
 
-			bool trigger = false;
+			// Check if button is hidden
+			if (!_mainMenuOptions[i]->GetHiddenState()) {
 
-			if (!trigger && SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-				switch (i)
+				// Check whether button is pressed
+				switch (event.type)
 				{
-				case 0:
-					SwitchToSubMenu();
+				// Apply appropriate action to corresponding button pressed
+				case SDL_MOUSEBUTTONDOWN:
+					if (event.button.button == SDL_BUTTON_LEFT)
+						_mainMenuOptions[i]->SetTriggered(true);
+						ButtonAction(i);
 					break;
-				case 1:
+
+				case SDL_MOUSEBUTTONUP:
+					if (event.button.button == SDL_BUTTON_LEFT)
+						_mainMenuOptions[i]->SetTriggered(false);
 					break;
-				case 2:
-					QUIT_GAME = true;
-					break;
-				case 5:
-					SwitchToSubMenu();
-					trigger = true;
-					break;
+
 				default:
 					break;
 				}
 			}
 		}
+		// Return to original text colour when not hoovered over
 		else {
 			_mainMenuOptions[i]->SetHooveredState(false);
 		}
 	}
 }
 
-void GameScreenMainMenu::SwitchToSubMenu()
+void GameScreenMainMenu::ButtonAction(int index)
+{
+	switch (index)
+	{
+	case 0: // Start Game
+		FlipMenu();
+		break;
+	case 1: // Level Ediot
+		break;
+	case 2: // Quit Game
+		QUIT_GAME = true;
+		break;
+	case 3: // Sub: Single Player
+		break;
+	case 4: // Sub: 2 Player
+		break;
+	case 5: // Sub: Back
+		FlipMenu();
+		break;
+
+	default:
+		break;
+	}
+}
+
+void GameScreenMainMenu::FlipMenu()
 {
 	for (unsigned int i = 0; i < 6; i++)
 	{
@@ -106,5 +141,5 @@ void GameScreenMainMenu::SwitchToSubMenu()
 		else
 			_mainMenuOptions[i]->SetHidden(true);
 	}
-}
 
+}

@@ -9,6 +9,7 @@ private:
 	SDL_Renderer* _renderer{ nullptr };
 	SDL_Rect* _position{ nullptr };
 
+	// Button Properties
 	const char* _text{ "" };
 	TTF_Font* _font{ nullptr };
 	SDL_Color _color{ 255,255,255 };
@@ -16,8 +17,10 @@ private:
 	SDL_Texture* _texture{ nullptr };
 	SDL_Texture* _altTexture{ nullptr };
 
+	// Button States
 	bool _hoovered{ false };
 	bool _hidden{ false };
+	bool _triggered{ false };
 
 public:
 	Text(SDL_Renderer* renderer, TTF_Font* font, SDL_Rect* location);
@@ -30,8 +33,11 @@ public:
 	void ChangePosition(int xPos, int yPos);
 
 	void SetHooveredState(bool state);
+	void SetTriggered(bool state);
 	void SetHidden(bool state);
+
 	inline SDL_Rect* GetPosition() const { return _position; }
+	inline bool GetTriggeredState() const { return _triggered; }
 	inline bool GetHiddenState() const { return _hidden; }
 };
 
