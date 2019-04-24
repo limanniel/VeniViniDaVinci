@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Character">
+      <UniqueIdentifier>{6255cbcc-3a5d-4c82-a786-0a9604a901ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Character">
+      <UniqueIdentifier>{7bc902f1-4711-4c35-9c97-fb99c1aaa4ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Screens">
+      <UniqueIdentifier>{53ef106e-e8e0-4820-91cc-1cc1e3c42df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Screens">
+      <UniqueIdentifier>{b1637bc1-f2ed-439d-b2e2-addaf20ec1b4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Character.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterCoin.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterKoopa.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterLuigi.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterMario.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collisions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LevelMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PowBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScreen.cpp">
+      <Filter>Source Files\Game Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScreenLevel1.cpp">
+      <Filter>Source Files\Game Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScreenMainMenu.cpp">
+      <Filter>Source Files\Game Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScreenManager.cpp">
+      <Filter>Source Files\Game Screens</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="src\Libs\SDL\SDL2.lib" />
+    <Library Include="src\Libs\SDL\SDL2_image.lib" />
+    <Library Include="src\Libs\SDL\SDL2_mixer.lib" />
+    <Library Include="src\Libs\SDL\SDL2main.lib" />
+    <Library Include="src\Libs\SDL\SDL2_ttf.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Texture2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Character.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterCoin.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterKoopa.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterLuigi.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterMario.h">
+      <Filter>Header Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Collisions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Commons.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LevelMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PowBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreen.h">
+      <Filter>Header Files\Game Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreenLevel1.h">
+      <Filter>Header Files\Game Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreenMainMenu.h">
+      <Filter>Header Files\Game Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreenManager.h">
+      <Filter>Header Files\Game Screens</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
