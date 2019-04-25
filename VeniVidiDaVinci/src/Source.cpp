@@ -24,7 +24,7 @@ int main(int argc, char* args[])
 {
 	//Check if SDL was set up correctly
 	if (InitSDL()) {
-		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_MENU);
+		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_LevelEditor);
 		gOldTime = SDL_GetTicks();
 		//LoadMusic("resources/Sounds/Mario.mp3");
 		if (Mix_PlayingMusic() == 0) {
@@ -62,6 +62,7 @@ bool InitSDL()
 			SCREEN_WIDTH,
 			SCREEN_HEIGHT,
 			SDL_WINDOW_SHOWN);
+		SDL_SetWindowResizable(gWindow, SDL_TRUE);
 
 		//Did the window get created?
 		if (gWindow == nullptr) {

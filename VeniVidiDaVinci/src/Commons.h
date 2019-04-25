@@ -45,7 +45,7 @@ struct Circle2D
 
 enum SCREENS
 {
-	SCREEN_INTRO = 0,
+	SCREEN_LevelEditor = 0,
 	SCREEN_MENU,
 	SCREEN_LEVEL1,
 	SCREEN_LEVEL2,

@@ -22,6 +22,7 @@ private:
 	SDL_Color _TextColour{ 255,255,255 };
 	SDL_Color _TextAltColour{ 255,146,30 };
 	
+	void SetUpMainMenu();
 	void UpdateButtons(SDL_Rect& mouse, SDL_Event event);
 	void ButtonAction(int index);
 	void FlipMenu();

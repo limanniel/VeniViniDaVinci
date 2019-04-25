@@ -10,29 +10,8 @@ GameScreenMainMenu::GameScreenMainMenu(SDL_Renderer* renderer)
 		std::cerr << "Failed to load MainMenuBG Texture!";
 	}
 
-	// Set up text's
-	// Main Menu
-	int yOffset = 0;
-	for (unsigned int i = 0; i < 3; i++)
-	{
-		_mainMenuOptions[i] = new Text(mRenderer, MarioFont, new SDL_Rect{ 156, 200 + yOffset, 224, 42 });
-		yOffset += 70;
-	}
-	_mainMenuOptions[0]->CreateText("Start Game", _TextColour, _TextAltColour);
-	_mainMenuOptions[1]->CreateText("Level Editor", _TextColour, _TextAltColour);
-	_mainMenuOptions[2]->CreateText("Quit Game", _TextColour, _TextAltColour);
-	
-	// Sub-Menu -> Start game
-	yOffset = 0;
-	for (unsigned int i = 3; i < 6; i++)
-	{
-		_mainMenuOptions[i] = new Text(mRenderer, MarioFont, new SDL_Rect{ 156, 200 + yOffset, 224, 42 });
-		_mainMenuOptions[i]->SetHidden(true);
-		yOffset += 70;
-	}
-	_mainMenuOptions[3]->CreateText("Single Player", _TextColour, _TextAltColour);
-	_mainMenuOptions[4]->CreateText("2 Player", _TextColour, _TextAltColour);
-	_mainMenuOptions[5]->CreateText("Back", _TextColour, _TextAltColour);
+	// Set-up Buttons
+	SetUpMainMenu();
 }
 
 
@@ -67,6 +46,32 @@ void GameScreenMainMenu::Update(float deltaTime, SDL_Event event)
 	UpdateButtons(mouseRect, event);
 
 	
+}
+
+void GameScreenMainMenu::SetUpMainMenu()
+{
+	// Main Menu
+	int yOffset = 0;
+	for (unsigned int i = 0; i < 3; i++)
+	{
+		_mainMenuOptions[i] = new Text(mRenderer, MarioFont, new SDL_Rect{ 156, 200 + yOffset, 224, 42 });
+		yOffset += 70;
+	}
+	_mainMenuOptions[0]->CreateText("Start Game", _TextColour, _TextAltColour);
+	_mainMenuOptions[1]->CreateText("Level Editor", _TextColour, _TextAltColour);
+	_mainMenuOptions[2]->CreateText("Quit Game", _TextColour, _TextAltColour);
+
+	// Sub-Menu -> Start game
+	yOffset = 0;
+	for (unsigned int i = 3; i < 6; i++)
+	{
+		_mainMenuOptions[i] = new Text(mRenderer, MarioFont, new SDL_Rect{ 156, 200 + yOffset, 224, 42 });
+		_mainMenuOptions[i]->SetHidden(true);
+		yOffset += 70;
+	}
+	_mainMenuOptions[3]->CreateText("Single Player", _TextColour, _TextAltColour);
+	_mainMenuOptions[4]->CreateText("2 Player", _TextColour, _TextAltColour);
+	_mainMenuOptions[5]->CreateText("Back", _TextColour, _TextAltColour);
 }
 
 void GameScreenMainMenu::UpdateButtons(SDL_Rect& mouse, SDL_Event event)

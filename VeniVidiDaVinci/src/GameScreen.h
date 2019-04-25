@@ -13,9 +13,9 @@ class GameScreen
 protected:
 	SDL_Renderer* mRenderer{ nullptr };
 	SDL_Cursor* mCursor{ nullptr };
-	int mPlayerScore{ 0 };
-
 	TTF_Font* MarioFont{ nullptr };
+
+	int mPlayerScore{ 0 };
 	
 	bool QUIT_GAME{ false };
 
@@ -25,6 +25,7 @@ public:
 
 	virtual void Render();
 	virtual void Update(float deltaTime, SDL_Event event);
+
 
 	inline bool CheckWhetherToQuit() const { return QUIT_GAME; }
 };

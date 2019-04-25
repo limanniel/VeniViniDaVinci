@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Game Screens">
       <UniqueIdentifier>{b1637bc1-f2ed-439d-b2e2-addaf20ec1b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\LevelEditor">
+      <UniqueIdentifier>{4aed2eea-ba10-461c-adc0-e4afdd1abe2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\LevelEditor">
+      <UniqueIdentifier>{1c4dd175-0934-4e7d-bdd7-35eabe5d7e3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Character.cpp">
@@ -43,9 +49,6 @@
       <Filter>Source Files\Character</Filter>
     </ClCompile>
     <ClCompile Include="src\Collisions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LevelMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\PowBlock.cpp">
@@ -73,6 +76,15 @@
       <Filter>Source Files\Game Screens</Filter>
     </ClCompile>
     <ClCompile Include="src\GameScreenManager.cpp">
+      <Filter>Source Files\Game Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LevelMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tile.cpp">
+      <Filter>Source Files\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScreenLevelEditor.cpp">
       <Filter>Source Files\Game Screens</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,6 +145,12 @@
       <Filter>Header Files\Game Screens</Filter>
     </ClInclude>
     <ClInclude Include="src\GameScreenManager.h">
+      <Filter>Header Files\Game Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tile.h">
+      <Filter>Header Files\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreenLevelEditor.h">
       <Filter>Header Files\Game Screens</Filter>
     </ClInclude>
   </ItemGroup>
