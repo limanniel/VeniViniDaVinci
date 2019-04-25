@@ -22,3 +22,6 @@ constexpr float KOOPA_SPEED = 96.0f;
 
 //Shake
 #define SCREENSHAKE_DURATION 0.25f
+
+// Level Editor
+#define LE_AMOUNTOFTYPEBLOCKS 4

@@ -1,5 +1,5 @@
 #include "GameScreenLevelEditor.h"
-
+#include <string>
 
 
 GameScreenLevelEditor::GameScreenLevelEditor(SDL_Renderer* renderer)
@@ -7,16 +7,15 @@ GameScreenLevelEditor::GameScreenLevelEditor(SDL_Renderer* renderer)
 {
 	_levelMap = new LevelMap(map);
 
-	_tileTexture = new Texture2D(renderer);
-	if (!_tileTexture->LoadFromFile("resources/Images/LevelEditor/Tile.png"))
-		std::cerr << "Failed to load tile texture!" << std::endl;
-	_tile = new Tile(_tileTexture);
+	for (unsigned int i = 0; i < LE_AMOUNTOFTYPEBLOCKS; i++)
+	{
+		std::string texturePath = "resources/Images/LevelEditor/.png";
+		_tilesTextures[i] = new Texture2D(renderer);
+		texturePath.insert(29, std::to_string(i));
+		_tilesTextures[i]->LoadFromFile(texturePath.c_str());
 
-	_groundTileTexture = new Texture2D(renderer);
-	if (!_groundTileTexture->LoadFromFile("resources/Images/LevelEditor/TestTile.png"))
-		std::cerr << "Failed to load tile texture!" << std::endl;
-	_groundTile = new Tile(_groundTileTexture);
-	
+		_tiles[i] = new Tile(_tilesTextures[i]);
+	}
 }
 
 
@@ -32,23 +31,10 @@ void GameScreenLevelEditor::Render()
 	{
 		int xPos = 0;
 		for (unsigned int j = 0; j < MAP_WIDTH; j++) {
-
-			int tileType = _levelMap->GetTileAt(i, j);
-			switch (tileType)
-			{
-			case 0:
-				_tile->Render(Vector2D(xPos, yPos));
-				break;
-			case 1:
-				_groundTile->Render(Vector2D(xPos, yPos));
-				break;
-			default:
-				break;
-			}
-
-			xPos += 32;
+			_tiles[_levelMap->GetTileAt(i, j)]->Render(Vector2D(xPos, yPos));
+			xPos += TILE_WIDTH;
 		}
-		yPos += 32;
+		yPos += TILE_HEIGHT;
 	}
 }
 
@@ -56,21 +42,41 @@ void GameScreenLevelEditor::Update(float deltaTime, SDL_Event event)
 {
 	int mousePosX{ 0 }, mousePosY{ 0 };
 	SDL_GetMouseState(&mousePosX, &mousePosY);
-	mousePosX -= 5;
-	mousePosY -= 10;
+	mousePosX -= 12;
+	mousePosY -= 12;
 
-	int centralXPosition = (int)(mousePosX + (_groundTileTexture->GetWidth() * 0.5f)) / TILE_WIDTH;
-	int footposition = (int)(mousePosY + (_groundTileTexture->GetHeight() * 0.5f)) / TILE_HEIGHT;
+	int centralXPosition = (int)(mousePosX + (TILE_WIDTH * 0.5f)) / TILE_WIDTH;
+	int footposition = (int)(mousePosY + (TILE_HEIGHT * 0.5f)) / TILE_HEIGHT;
 
-	std::cout << "Tile: " << _levelMap->GetTileAt(footposition, centralXPosition) << std::endl;
-
-	switch(event.type)
-	{
-	case SDL_MOUSEBUTTONDOWN:
-		_levelMap->ChangeTileAt(footposition, centralXPosition, 1);
-		break;
-
-	default:
-		break;
+	if (event.button.button == SDL_BUTTON_LEFT) {
+		if (event.type == SDL_MOUSEBUTTONDOWN) {
+			_levelMap->ChangeTileAt(footposition, centralXPosition, BlockSelector(event));
+		}
 	}
+	else if (event.button.button == SDL_BUTTON_RIGHT) {
+		if (event.type == SDL_MOUSEBUTTONDOWN) {
+			_levelMap->ChangeTileAt(footposition, centralXPosition, 0);
+		}
+	}
+
+	BlockSelector(event);
+}
+
+int GameScreenLevelEditor::BlockSelector(SDL_Event event)
+{
+	int wheelY = 0;
+	if (event.type == SDL_MOUSEWHEEL) {
+		wheelY = event.wheel.y;
+		if (wheelY > 0) {
+			_ActiveBlock++;
+			if (_ActiveBlock > LE_AMOUNTOFTYPEBLOCKS - 1) // Index starts at 0
+				_ActiveBlock = 1;
+		}
+		else if (wheelY < 0) {
+			_ActiveBlock--;
+			if (_ActiveBlock < 1)
+				_ActiveBlock = LE_AMOUNTOFTYPEBLOCKS - 1;
+		}
+	}
+	return _ActiveBlock;
 }

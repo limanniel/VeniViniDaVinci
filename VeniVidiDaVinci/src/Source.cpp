@@ -161,14 +161,6 @@ bool Update()
 			return true;
 			//break;
 		}
-
-		//Exit engine upon RMB press
-	case SDL_MOUSEBUTTONDOWN:
-		switch (event.button.button) {
-		case SDL_BUTTON_RIGHT:
-			return true;
-			break;
-		}
 	}
 	gameScrenManager->Update((float)(newTime - gOldTime) / 1000.0, event);
 	gOldTime = newTime;
