@@ -154,4 +154,7 @@
       <Filter>Header Files\Game Screens</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
 </Project>

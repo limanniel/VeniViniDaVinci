@@ -153,14 +153,14 @@ bool Update()
 		return true;
 		break;
 
-		//Exit engine upon Q key press
-	case SDL_KEYDOWN:
-		switch (event.key.keysym.sym) {
-			// Q
-		case SDLK_q:
-			return true;
-			//break;
-		}
+	//	//Exit engine upon Q key press
+	//case SDL_KEYDOWN:
+	//	switch (event.key.keysym.sym) {
+	//		// Q
+	//	case SDLK_q:
+	//		return true;
+	//		//break;
+	//	}
 	}
 	gameScrenManager->Update((float)(newTime - gOldTime) / 1000.0, event);
 	gOldTime = newTime;

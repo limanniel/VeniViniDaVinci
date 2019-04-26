@@ -1,13 +1,18 @@
 #pragma once
 #include "GameScreen.h"
 #include "LevelMap.h"
+#include "Text.h"
 #include "Tile.h"
 
 class GameScreenLevelEditor : public GameScreen
 {
 private:
+	Texture2D* _HUD;
+	Text* _HUDBlockName[3];
+
 	Texture2D* _tilesTextures[LE_AMOUNTOFTYPEBLOCKS];
 	Tile* _tiles[LE_AMOUNTOFTYPEBLOCKS];
+
 
 	int map[MAP_HEIGHT][MAP_WIDTH]{ 0 };
 	LevelMap* _levelMap{ nullptr };

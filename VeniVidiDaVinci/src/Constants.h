@@ -2,7 +2,7 @@
 
 //Screen dimensions.
 #define SCREEN_WIDTH 512
-#define SCREEN_HEIGHT 412
+#define SCREEN_HEIGHT 512
 
 //Map
 #define MAP_HEIGHT 13

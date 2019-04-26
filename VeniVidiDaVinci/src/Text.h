@@ -28,7 +28,7 @@ public:
 
 	void Render();
 
-	void CreateText(const char* text, SDL_Color color, SDL_Color altColor = {255,255,255});
+	void CreateText(const char* text, SDL_Color color = { 255,255,255 }, SDL_Color altColor = {255,255,255});
 	void ChangeColour(SDL_Color color);
 	void ChangePosition(int xPos, int yPos);
 
