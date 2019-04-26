@@ -5,6 +5,11 @@ CharacterMario::CharacterMario(SDL_Renderer* renderer, const char* imagePath, Ve
 {
 }
 
+CharacterMario::CharacterMario(SDL_Renderer* renderer, const char* imagePath, Vector2D startPosition)
+	: Character(renderer, imagePath, startPosition)
+{
+}
+
 CharacterMario::~CharacterMario()
 {
 }

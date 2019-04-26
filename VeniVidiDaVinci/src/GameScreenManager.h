@@ -6,6 +6,7 @@ class GameScreen;
 class GameScreenLevel1;
 class GameScreenMainMenu;
 class GameScreenLevelEditor;
+class GameScreenLevel2;
 
 class GameScreenManager
 {

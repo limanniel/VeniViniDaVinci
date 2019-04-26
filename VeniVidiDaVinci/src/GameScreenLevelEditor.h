@@ -8,7 +8,8 @@ class GameScreenLevelEditor : public GameScreen
 {
 private:
 	Texture2D* _HUD;
-	Text* _HUDBlockName[3];
+	Text* _HUDBlockName[LE_AMOUNTOFTYPEBLOCKS - 1];
+	Text* _HUDSaveMap;
 
 	Texture2D* _tilesTextures[LE_AMOUNTOFTYPEBLOCKS];
 	Tile* _tiles[LE_AMOUNTOFTYPEBLOCKS];
@@ -19,6 +20,9 @@ private:
 
 	int _ActiveBlock{ 1 };
 	int BlockSelector(SDL_Event event);
+
+	bool ValidateMap();
+	void SaveMap();
 
 public:
 	GameScreenLevelEditor(SDL_Renderer* renderer);

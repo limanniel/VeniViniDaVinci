@@ -8,6 +8,14 @@ Character::Character(SDL_Renderer* renderer, const char* imagePath, Vector2D sta
 	SetPosition(startPosition); // Set character starting position
 }
 
+Character::Character(SDL_Renderer* renderer, const char* imagePath, Vector2D startPosition)
+	:mRenderer(renderer), mFacingDirection(FACING_RIGHT), mMovingLeft(false), mMovingRight(false), mCharacterSpeed(100), mCollisionRadius(15.0f)
+{
+	mTexture = new Texture2D(mRenderer);
+	mTexture->LoadFromFile(imagePath);
+	SetPosition(startPosition); 
+}
+
 Character::~Character()
 {
 	mRenderer = nullptr;
@@ -25,17 +33,19 @@ void Character::Render()
 
 void Character::Update(float deltaTime, SDL_Event event)
 {
-	// Collsiion position variables
-	int centralXPosition = (int)(mPosition.x + (mTexture->GetWidth() * 0.5f)) / TILE_WIDTH;
-	int footPosition = (int)(mPosition.y + (mTexture->GetHeight())) / TILE_HEIGHT;
+	if (mCurrentLevelMap != nullptr) {
+		// Collsiion position variables
+		int centralXPosition = (int)(mPosition.x + (mTexture->GetWidth() * 0.5f)) / TILE_WIDTH;
+		int footPosition = (int)(mPosition.y + (mTexture->GetHeight())) / TILE_HEIGHT;
 
-	// Deal with gravity
-	if (mCurrentLevelMap->GetTileAt(footPosition, centralXPosition) == 0) {
-		AddGravity(deltaTime); // Add gravity to the character
-	}
-	else {
-		//Collided with ground so we can jump again
-		mCanJump = true;
+		// Deal with gravity
+		if (mCurrentLevelMap->GetTileAt(footPosition, centralXPosition) == 0) {
+			AddGravity(deltaTime); // Add gravity to the character
+		}
+		else {
+			//Collided with ground so we can jump again
+			mCanJump = true;
+		}
 	}
 
 	if (mJumping) {

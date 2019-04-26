@@ -12,7 +12,7 @@ protected:
 	SDL_Renderer* mRenderer;
 	Vector2D mPosition;
 	Texture2D* mTexture;
-	LevelMap* mCurrentLevelMap;
+	LevelMap* mCurrentLevelMap{ nullptr };
 
 	// Movement
 	FACING mFacingDirection;
@@ -31,6 +31,7 @@ protected:
 
 public:
 	Character(SDL_Renderer* renderer, const char* imagePath, Vector2D startPosition, LevelMap* map);
+	Character(SDL_Renderer* renderer, const char* imagePath, Vector2D startPosition);
 	virtual ~Character();
 
 	virtual void Render();

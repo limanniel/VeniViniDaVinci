@@ -2,6 +2,7 @@
 #include "GameScreenLevel1.h"
 #include "GameScreenMainMenu.h"
 #include "GameScreenLevelEditor.h"
+#include "GameScreenLevel2.h"
 
 GameScreenManager::GameScreenManager(SDL_Renderer* renderer, SCREENS startScreen)
 	: mRenderer(renderer), mCurrentScreen(nullptr)
@@ -42,6 +43,7 @@ void GameScreenManager::ChangeScreen(SCREENS newScreen)
 	GameScreenLevel1* tempScreen;
 	GameScreenMainMenu* tempMainMenu;
 	GameScreenLevelEditor* tempLevelEditor;
+	GameScreenLevel2* tempLevel2Screen;
 
 	switch (newScreen) {
 	case SCREEN_LevelEditor:
@@ -60,6 +62,9 @@ void GameScreenManager::ChangeScreen(SCREENS newScreen)
 		tempScreen = nullptr;
 		break;
 	case SCREEN_LEVEL2:
+		tempLevel2Screen = new GameScreenLevel2(mRenderer);
+		mCurrentScreen = (GameScreen*)tempLevel2Screen;
+		tempLevel2Screen = nullptr;
 		break;
 	case SCREEN_GAMEOVER:
 		break;

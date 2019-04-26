@@ -87,6 +87,9 @@
     <ClCompile Include="src\GameScreenLevelEditor.cpp">
       <Filter>Source Files\Game Screens</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameScreenLevel2.cpp">
+      <Filter>Source Files\Game Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="src\Libs\SDL\SDL2.lib" />
@@ -151,6 +154,9 @@
       <Filter>Header Files\LevelEditor</Filter>
     </ClInclude>
     <ClInclude Include="src\GameScreenLevelEditor.h">
+      <Filter>Header Files\Game Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameScreenLevel2.h">
       <Filter>Header Files\Game Screens</Filter>
     </ClInclude>
   </ItemGroup>

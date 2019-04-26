@@ -58,3 +58,14 @@ enum FACING
 	FACING_LEFT = 0,
 	FACING_RIGHT
 };
+
+enum class TileTypes : char
+{
+	NONE = '0',
+	PLATFORM = '1',
+	POW = '2',
+	COIN = '3',
+	RIGHT_PIPE = '4',
+	LEFT_PIPE = '5',
+	MARIO_SPAWN = '6'
+};
