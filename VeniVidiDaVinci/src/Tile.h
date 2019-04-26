@@ -19,6 +19,6 @@ public:
 	void Render(Vector2D position);
 	void Render();
 
-
+	inline SDL_Rect* GetSourceRect() const { return _sourceRect; }
 };
 

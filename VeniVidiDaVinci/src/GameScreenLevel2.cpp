@@ -24,6 +24,10 @@ void GameScreenLevel2::Render()
 
 void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 {
+	for (unsigned int i = 0; i < _tiles.size(); i++)
+	{
+		_mario->IsCharacterOnTheGround(_tiles[i]);
+	}
 	_mario->Update(deltaTime, event);
 }
 
@@ -70,7 +74,7 @@ void GameScreenLevel2::LoadLevel()
 				_tiles.push_back(new Tile(mRenderer, TileTypes::LEFT_PIPE, Vector2D(xPos, yPos)));
 				break;
 				case static_cast<char>(TileTypes::MARIO_SPAWN) :
-					_mario = new CharacterMario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos), nullptr);
+					_mario = new CharacterMario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos + 20), nullptr);
 				break;
 
 			default:

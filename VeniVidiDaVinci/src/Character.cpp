@@ -48,6 +48,15 @@ void Character::Update(float deltaTime, SDL_Event event)
 		}
 	}
 
+	if (_onTheGround) 
+	{
+		mCanJump = true;
+	}
+
+	else if (!_onTheGround) {
+		AddGravity(deltaTime);
+	}
+
 	if (mJumping) {
 		mPosition.y -= mJumpForce * deltaTime; // Adjust position
 		mJumpForce -= JUMP_FORCE_DECREMENT * deltaTime; // Reduce jump force;
@@ -105,4 +114,17 @@ void Character::Jump()
 void Character::CancelJump()
 {
 	mJumping = false;
+}
+
+void Character::IsCharacterOnTheGround(Tile* ground)
+{
+	if (Collisions::Instance()->Box(*ground->GetSourceRect(), *new SDL_Rect{ (int)mPosition.x, (int)mPosition.y, mTexture->GetWidth(), mTexture->GetHeight() })) 
+	{
+		_onTheGround = true;
+	}
+	else 
+	{
+		_onTheGround = false;
+	}
+
 }

@@ -120,6 +120,8 @@ void GameScreenMainMenu::ButtonAction(int index)
 		FlipMenu();
 		break;
 	case 1: // Level Ediot
+		SCREEN = SCREEN_LevelEditor;
+		SCREEN_CHANGE = true;
 		break;
 	case 2: // Quit Game
 		QUIT_GAME = true;
@@ -127,6 +129,8 @@ void GameScreenMainMenu::ButtonAction(int index)
 	case 3: // Sub: Single Player
 		break;
 	case 4: // Sub: 2 Player
+		SCREEN = SCREEN_LEVEL1;
+		SCREEN_CHANGE = true;
 		break;
 	case 5: // Sub: Back
 		FlipMenu();

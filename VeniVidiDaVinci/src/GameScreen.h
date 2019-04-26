@@ -17,6 +17,9 @@ protected:
 
 	int mPlayerScore{ 0 };
 	
+	bool SCREEN_CHANGE{ false };
+	SCREENS SCREEN{ SCREEN_MENU };
+
 	bool QUIT_GAME{ false };
 
 public:
@@ -28,4 +31,6 @@ public:
 
 
 	inline bool CheckWhetherToQuit() const { return QUIT_GAME; }
+	inline bool CheckWhetherToChangeScreen() const { return SCREEN_CHANGE; }
+	SCREENS GetWhichScreenToChangeTo();
 };

@@ -5,6 +5,8 @@
 #include "Texture2D.h"
 #include "Constants.h"
 #include "LevelMap.h"
+#include "Tile.h"
+#include "Collisions.h"
 
 class Character
 {
@@ -51,4 +53,7 @@ public:
 	Circle2D getCollisionCircle() const { return Circle2D(mPosition, mCollisionRadius); }
 	Rect2D getCollisionBox() const { return Rect2D(mPosition.x, mPosition.y, mTexture->GetWidth(), mTexture->GetHeight()); }
 	Vector2D GetPosition() const { return mPosition; }
+
+	void IsCharacterOnTheGround(Tile* ground);
+	bool _onTheGround{ true };
 };

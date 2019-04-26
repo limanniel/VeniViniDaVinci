@@ -22,6 +22,12 @@ void GameScreen::Update(float deltaTime, SDL_Event event)
 {
 }
 
+SCREENS GameScreen::GetWhichScreenToChangeTo() 
+{
+	SCREEN_CHANGE = false;
+	return SCREEN;
+}
+
 void GameScreen::Render()
 {
 }
