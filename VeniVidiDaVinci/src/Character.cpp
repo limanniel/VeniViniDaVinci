@@ -1,7 +1,7 @@
 #include "Character.h"
 
 Character::Character(SDL_Renderer* renderer, const char* imagePath, Vector2D startPosition, LevelMap* map)
-	:mRenderer(renderer), mFacingDirection(FACING_RIGHT), mMovingLeft(false), mMovingRight(false), mCharacterSpeed(100), mCollisionRadius(15.0f), mCurrentLevelMap(map)
+	:mRenderer(renderer), mFacingDirection(FACING::RIGHT), mMovingLeft(false), mMovingRight(false), mCharacterSpeed(100), mCollisionRadius(15.0f), mCurrentLevelMap(map)
 {
 	mTexture = new Texture2D(mRenderer);
 	mTexture->LoadFromFile(imagePath);
@@ -9,7 +9,7 @@ Character::Character(SDL_Renderer* renderer, const char* imagePath, Vector2D sta
 }
 
 Character::Character(SDL_Renderer* renderer, const char* imagePath, Vector2D startPosition)
-	:mRenderer(renderer), mFacingDirection(FACING_RIGHT), mMovingLeft(false), mMovingRight(false), mCharacterSpeed(100), mCollisionRadius(15.0f)
+	:mRenderer(renderer), mFacingDirection(FACING::RIGHT), mMovingLeft(false), mMovingRight(false), mCharacterSpeed(100), mCollisionRadius(15.0f)
 {
 	mTexture = new Texture2D(mRenderer);
 	mTexture->LoadFromFile(imagePath);
@@ -23,7 +23,7 @@ Character::~Character()
 
 void Character::Render()
 {
-	if (mFacingDirection == FACING_RIGHT) {
+	if (mFacingDirection == FACING::RIGHT) {
 		mTexture->Render(mPosition, SDL_RendererFlip::SDL_FLIP_NONE, 0.0f);
 	}
 	else {
@@ -81,13 +81,13 @@ void Character::SetPosition(Vector2D newPosition)
 
 void Character::MoveLeft(float deltaTime)
 {
-	mFacingDirection = FACING_LEFT;
+	mFacingDirection = FACING::LEFT;
 	mPosition.x -= deltaTime * mCharacterSpeed;
 }
 
 void Character::MoveRight(float deltaTime)
 {
-	mFacingDirection = FACING_RIGHT;
+	mFacingDirection = FACING::RIGHT;
 	mPosition.x += deltaTime * mCharacterSpeed;
 }
 

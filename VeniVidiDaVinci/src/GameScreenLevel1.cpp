@@ -179,8 +179,8 @@ void GameScreenLevel1::CreateCoin(Vector2D position)
 void GameScreenLevel1::SpawnEnemies()
 {
 	if (mEnemies.empty()) {
-		CreateKoopa(Vector2D(64.0f, 32.0f), FACING_RIGHT, KOOPA_SPEED);
-		CreateKoopa(Vector2D(416.0f, 32.0f), FACING_LEFT, KOOPA_SPEED);
+		CreateKoopa(Vector2D(64.0f, 32.0f), FACING::RIGHT, KOOPA_SPEED);
+		CreateKoopa(Vector2D(416.0f, 32.0f), FACING::LEFT, KOOPA_SPEED);
 	}
 }
 

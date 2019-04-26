@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entity_Mario.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameScreenLevel2.cpp" />
     <ClCompile Include="src\GameScreenLevelEditor.cpp" />
     <ClCompile Include="src\GameScreenMainMenu.cpp" />
@@ -159,6 +161,8 @@
     <Library Include="src\Libs\SDL\SDL2_ttf.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity_Mario.h" />
+    <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameScreenLevel2.h" />
     <ClInclude Include="src\GameScreenLevelEditor.h" />
     <ClInclude Include="src\GameScreenMainMenu.h" />

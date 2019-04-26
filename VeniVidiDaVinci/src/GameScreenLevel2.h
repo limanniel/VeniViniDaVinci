@@ -1,6 +1,6 @@
 #pragma once
 #include "GameScreen.h"
-#include "CharacterMario.h"
+#include "Entity_Mario.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -10,7 +10,7 @@ class GameScreenLevel2 : public GameScreen
 {
 private:
 	std::vector<Tile*> _tiles;
-	CharacterMario* _mario;
+	Entity_Mario* _mario{ nullptr };
 
 
 	void LoadLevel();

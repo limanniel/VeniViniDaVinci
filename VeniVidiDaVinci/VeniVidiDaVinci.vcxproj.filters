@@ -31,6 +31,12 @@
     <Filter Include="Header Files\LevelEditor">
       <UniqueIdentifier>{1c4dd175-0934-4e7d-bdd7-35eabe5d7e3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Reworked Characters">
+      <UniqueIdentifier>{84b27787-6c03-4115-8f6c-2d27f580375b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Reworked Characters">
+      <UniqueIdentifier>{321de5dc-018d-4539-ba2a-e3c563548b27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Character.cpp">
@@ -89,6 +95,12 @@
     </ClCompile>
     <ClCompile Include="src\GameScreenLevel2.cpp">
       <Filter>Source Files\Game Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>Source Files\Reworked Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity_Mario.cpp">
+      <Filter>Source Files\Reworked Characters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +170,12 @@
     </ClInclude>
     <ClInclude Include="src\GameScreenLevel2.h">
       <Filter>Header Files\Game Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity.h">
+      <Filter>Header Files\Reworked Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity_Mario.h">
+      <Filter>Header Files\Reworked Characters</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

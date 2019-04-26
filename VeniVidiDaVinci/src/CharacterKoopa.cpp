@@ -29,7 +29,7 @@ void CharacterKoopa::Render()
 	SDL_Rect portionOfSpritesheet = { left, 0, mSingleSpriteWidth, mSingleSpriteHeight };
 	SDL_Rect destRect = { static_cast<int>(mPosition.x), static_cast<int>(mPosition.y), mSingleSpriteWidth, mSingleSpriteHeight };
 
-	if (mFacingDirection == FACING_RIGHT) {
+	if (mFacingDirection == FACING::RIGHT) {
 		mTexture->Render(portionOfSpritesheet, destRect, SDL_FLIP_NONE);
 	}
 	else {
@@ -43,11 +43,11 @@ void CharacterKoopa::Update(float deltaTime, SDL_Event event)
 	CheckIfMapBoundryIsHit();
 
 	if (!mInjured) {
-		if (mFacingDirection == FACING_LEFT) {
+		if (mFacingDirection == FACING::LEFT) {
 			mMovingLeft = true;
 			mMovingRight = false;
 		}
-		else if (mFacingDirection == FACING_RIGHT) {
+		else if (mFacingDirection == FACING::RIGHT) {
 			mMovingLeft = false;
 			mMovingRight = true;
 		}
@@ -90,14 +90,14 @@ void CharacterKoopa::CheckIfMapBoundryIsHit()
 {
 	if (mPosition.x < 0 || mPosition.x + mSingleSpriteWidth >= SCREEN_WIDTH) 
 	{
-		mFacingDirection = mFacingDirection == FACING::FACING_LEFT ? FACING::FACING_RIGHT : FACING::FACING_LEFT;
+		mFacingDirection = mFacingDirection == FACING::LEFT ? FACING::RIGHT : FACING::LEFT;
 		//std::cout << "HIT" << std::endl;
 	}
 }
 
 void CharacterKoopa::FlipRightwayUp()
 {
-	mFacingDirection = FACING::FACING_LEFT ? FACING::FACING_RIGHT : FACING::FACING_LEFT;
+	mFacingDirection = mFacingDirection == FACING::LEFT ? FACING::RIGHT : FACING::LEFT;
 	mInjured = false;
 	Jump();
 }

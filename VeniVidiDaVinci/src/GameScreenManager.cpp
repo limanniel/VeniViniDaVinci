@@ -22,12 +22,11 @@ GameScreenManager::~GameScreenManager()
 
 void GameScreenManager::Update(float deltaTime, SDL_Event event)
 {
+	mCurrentScreen->Update(deltaTime, event);
 	if (mCurrentScreen->CheckWhetherToQuit())
 		QUIT_GAME = true;
 	if (mCurrentScreen->CheckWhetherToChangeScreen()) 
 		ChangeScreen(mCurrentScreen->GetWhichScreenToChangeTo());
-
-	mCurrentScreen->Update(deltaTime, event);
 }
 
 void GameScreenManager::Render()

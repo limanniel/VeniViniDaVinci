@@ -10,6 +10,7 @@ private:
 	Texture2D* _HUD;
 	Text* _HUDBlockName[LE_AMOUNTOFTYPEBLOCKS - 1];
 	Text* _HUDSaveMap;
+	Text* _HUDPlayLevel;
 
 	Texture2D* _tilesTextures[LE_AMOUNTOFTYPEBLOCKS];
 	Tile* _tiles[LE_AMOUNTOFTYPEBLOCKS];

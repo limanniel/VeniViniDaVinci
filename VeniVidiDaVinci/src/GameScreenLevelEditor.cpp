@@ -34,6 +34,8 @@ GameScreenLevelEditor::GameScreenLevelEditor(SDL_Renderer* renderer)
 
 	_HUDSaveMap = new Text(renderer, MarioFont, new SDL_Rect{ 350, 465, 128, 18 });
 	_HUDSaveMap->CreateText("Save Map");
+	_HUDPlayLevel = new Text(renderer, MarioFont, new SDL_Rect{ 350, 435, 128, 18 });
+	_HUDPlayLevel->CreateText("Play Level");
 }
 
 
@@ -55,6 +57,9 @@ GameScreenLevelEditor::~GameScreenLevelEditor()
 	delete _HUDSaveMap;
 	_HUDSaveMap = nullptr;
 
+	delete _HUDPlayLevel;
+	_HUDPlayLevel = nullptr;
+
 	delete _levelMap;
 	_levelMap = nullptr;
 }
@@ -74,6 +79,7 @@ void GameScreenLevelEditor::Render()
 	}
 	_HUD->Render(Vector2D(0.0f, 412.0f), SDL_FLIP_NONE, 0.0f);
 	_HUDSaveMap->Render();
+	_HUDPlayLevel->Render();
 	_HUDBlockName[_ActiveBlock - 1]->Render();
 	_tiles[_ActiveBlock]->Render(Vector2D(39.0f, 458.0f));
 }
@@ -89,6 +95,15 @@ void GameScreenLevelEditor::Update(float deltaTime, SDL_Event event)
 		if (event.button.button == SDL_BUTTON_LEFT) {
 			if (event.type == SDL_MOUSEBUTTONDOWN) {
 				SaveMap();
+			}
+		}
+	}
+	if (Collisions::Instance()->Box(*new SDL_Rect{ mousePosX, mousePosY, 16, 16 }, *_HUDPlayLevel->GetPosition()))
+	{
+		if (event.button.button == SDL_BUTTON_LEFT) {
+			if (event.type == SDL_MOUSEBUTTONDOWN) {
+				SCREEN = SCREEN_LEVEL2;
+				SCREEN_CHANGE = true;
 			}
 		}
 	}
