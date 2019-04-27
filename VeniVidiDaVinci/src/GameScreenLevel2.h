@@ -12,8 +12,8 @@ private:
 	std::vector<Tile*> _tiles;
 	Entity_Mario* _mario{ nullptr };
 
-
 	void LoadLevel();
+ 
 
 public:
 	GameScreenLevel2(SDL_Renderer* renderer);

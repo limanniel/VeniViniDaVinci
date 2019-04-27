@@ -5,6 +5,7 @@ class Entity_Mario : public Entity
 {
 private:
 	// Animation
+	int _singleSpriteWidth{ 32 }, _singleSpriteHeight{ 42 };
 	const float _animationDuration;
 	float _animationDelay{ 0.0f };
 	int _currentFame{ 1 }, _activeFrame{ 0 }, _jumpFrame{ 0 };

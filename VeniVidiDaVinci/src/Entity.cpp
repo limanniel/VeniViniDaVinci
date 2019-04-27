@@ -6,6 +6,7 @@ Entity::Entity(SDL_Renderer* renderer, const char* texturePath, Vector2D positio
 	_Texture = new Texture2D(_Renderer);
 	_Texture->LoadFromFile(texturePath);
 	_Position = position;
+	_Rect = new SDL_Rect{ (int)_Position.x, (int)_Position.y, 32, 42 };
 }
 
 
@@ -26,6 +27,12 @@ void Entity::Render()
 
 void Entity::Update(double deltaTime, SDL_Event event)
 {
+	if (!_IsOnTheGround)
+	{
+		AddGravity(deltaTime);
+		_Rect->y = _Position.y;
+	}
+
 	if (_MovingLeft)
 	{
 		MoveLeft(deltaTime);
@@ -46,4 +53,9 @@ void Entity::MoveRight(double deltaTime)
 {
 	_FacingDirection = FACING::RIGHT;
 	_Position.x += _MovementSpeed * deltaTime;
+}
+
+void Entity::AddGravity(double deltaTime)
+{
+	_Position.y += GRAVITY_FORCE * deltaTime;
 }

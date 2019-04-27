@@ -24,8 +24,8 @@ int main(int argc, char* args[])
 {
 	//Check if SDL was set up correctly
 	if (InitSDL()) {
-		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_MENU);
-		gOldTime = 0;
+		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL2);
+		gOldTime = SDL_GetPerformanceCounter();
 		//LoadMusic("resources/Sounds/Mario.mp3");
 		if (Mix_PlayingMusic() == 0) {
 			Mix_PlayMusic(gMusic, -1);
@@ -162,7 +162,7 @@ bool Update()
 	//		//break;
 	//	}
 	}
-	gameScrenManager->Update(static_cast<double>((newTime - gOldTime)*1000) / static_cast<double>(SDL_GetPerformanceFrequency()), event);
+	gameScrenManager->Update((double)((newTime - gOldTime) * 1000 / (double)SDL_GetPerformanceFrequency()), event);
 	gOldTime = newTime;
 
 	if (gameScrenManager->CheckWhetherToQuit())

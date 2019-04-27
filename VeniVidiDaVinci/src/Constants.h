@@ -13,7 +13,7 @@
 //Jump Related Stuff
 #define JUMP_FORCE_DECREMENT 400.0f
 #define INITIAL_JUMP_FORCE 400.0f
-#define GRAVITY_FORCE 96.0f
+#define GRAVITY_FORCE 0.5f
 
 //Character Data
 #define AMOUNT_OF_PLAYERS 2

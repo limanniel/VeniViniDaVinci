@@ -34,10 +34,7 @@ bool Collisions::Box(Rect2D rect1, Rect2D rect2)
 
 bool Collisions::Box(SDL_Rect& rect1, SDL_Rect& rect2)
 {
-	if (rect1.x + (rect1.w / 2) > rect2.x
-		&& rect1.x + (rect1.w / 2) < rect2.x + rect2.w
-		&& rect1.y + (rect1.h / 2) > rect2.y
-		&& rect1.y + (rect1.h / 2) < rect2.y + rect2.h) {
+	if (SDL_HasIntersection(&rect1, &rect2)) {
 		return true;
 	}
 	return false;

@@ -22,6 +22,19 @@ void GameScreenLevel2::Render()
 
 void GameScreenLevel2::Update(double deltaTime, SDL_Event event)
 {
+	// Check Whether Mario is on the ground
+	for (unsigned int i = 0; i < _tiles.size(); i++)
+	{
+		if (Collisions::Instance()->Box(*_mario->GetRect(), *_tiles[i]->GetSourceRect()))
+		{
+			_mario->SetIsOnTheGround(true);
+			break;
+		}
+		else
+		{
+			_mario->SetIsOnTheGround(false);
+		}
+	}
 	_mario->Update(deltaTime, event);
 }
 
@@ -68,7 +81,7 @@ void GameScreenLevel2::LoadLevel()
 				_tiles.push_back(new Tile(mRenderer, TileTypes::LEFT_PIPE, Vector2D(xPos, yPos)));
 				break;
 				case static_cast<char>(TileTypes::MARIO_SPAWN) :
-					_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 10));
+					_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 100));
 				break;
 
 			default:
