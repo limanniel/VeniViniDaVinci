@@ -4,9 +4,6 @@
 class Entity_Mario : public Entity
 {
 private:
-	// Animation
-	int _jumpFrame{ 0 };
-
 	void RunningAnimation(float deltaTime);
 
 public:

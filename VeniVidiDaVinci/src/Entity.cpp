@@ -5,7 +5,6 @@ Entity::Entity(SDL_Renderer* renderer, const char* texturePath, Vector2D positio
 	_Renderer = renderer;
 	_Texture = new Texture2D(_Renderer);
 	_Texture->LoadFromFile(texturePath);
-	
 }
 
 
@@ -17,10 +16,16 @@ Entity::~Entity()
 
 void Entity::Render()
 {
+	SDL_Rect portionOfSpriteSheet{ _xFrame, _yFrame, _singleSpriteWidth, _singleSpriteHeight };
+
 	if (_FacingDirection == FACING::RIGHT)
-		_Texture->Render(_SourceRect, SDL_FLIP_NONE, 0.0f);
+	{
+		_Texture->Render(portionOfSpriteSheet, (SDL_Rect)_SourceRect, SDL_FLIP_NONE);
+	}
 	else
-		_Texture->Render(_SourceRect, SDL_FLIP_HORIZONTAL, 0.0f);
+	{
+		_Texture->Render(portionOfSpriteSheet, (SDL_Rect)_SourceRect, SDL_FLIP_HORIZONTAL);
+	}
 }
 
 void Entity::Update(float deltaTime, SDL_Event event)

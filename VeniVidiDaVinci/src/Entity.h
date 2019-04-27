@@ -16,7 +16,7 @@ protected:
 	bool _IsOnTheGround{ true };
 
 	// Movement
-	const float _MovementSpeed{ 0.25f };
+	float _MovementSpeed{ 0.15f };
 	FACING _FacingDirection{FACING::RIGHT};
 	bool _MovingLeft{ false }, _MovingRight{ false };
 	void MoveLeft(float deltaTime);
@@ -36,7 +36,7 @@ protected:
 	int _singleSpriteWidth{ 32 }, _singleSpriteHeight{ 32 };
 	float _animationDuration{ 0.0f };
 	float _animationDelay{ 0.0f };
-	int _currentFame{ 1 }, _activeFrame{ 0 };
+	int _currentFrame{ 1 }, _xFrame{ 0 }, _yFrame{ 0 };
 
 
 public:

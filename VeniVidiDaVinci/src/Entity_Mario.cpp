@@ -7,6 +7,7 @@ Entity_Mario::Entity_Mario(SDL_Renderer* renderer, const char* texturePath, Vect
 {
 	_singleSpriteWidth = 32;
 	_singleSpriteHeight = 42;
+	_MovementSpeed = 0.18f;
 	_animationDuration = 1.5f;
 	_SourceRect = Rect2D(position.x, position.y, _singleSpriteWidth, _singleSpriteHeight);
 }
@@ -18,16 +19,7 @@ Entity_Mario::~Entity_Mario()
 
 void Entity_Mario::Render()
 {
-	SDL_Rect portionOfSpriteSheet{ _activeFrame, _jumpFrame, _singleSpriteWidth, _singleSpriteHeight };
-
-	if (_FacingDirection == FACING::RIGHT)
-	{
-		_Texture->Render(portionOfSpriteSheet, (SDL_Rect)_SourceRect, SDL_FLIP_HORIZONTAL);
-	}
-	else
-	{
-		_Texture->Render(portionOfSpriteSheet, (SDL_Rect)_SourceRect, SDL_FLIP_NONE);
-	}
+	Entity::Render();
 }
 
 void Entity_Mario::Update(float deltaTime, SDL_Event event)
@@ -52,8 +44,8 @@ void Entity_Mario::Update(float deltaTime, SDL_Event event)
 		case SDLK_SPACE:
 			if (_CanJump){
 				Jump();
-				_activeFrame = 0;
-				_jumpFrame = _singleSpriteHeight;
+				_xFrame = 0;
+				_yFrame = _singleSpriteHeight;
 				break;
 			}
 		}
@@ -64,13 +56,13 @@ void Entity_Mario::Update(float deltaTime, SDL_Event event)
 		{
 		case SDLK_LEFT:
 			_MovingLeft = false;
-			_activeFrame = 0;
+			_xFrame = 0;
 			break;
 		case SDLK_RIGHT:
 			_MovingRight = false;
-			_activeFrame = 0;
+			_xFrame = 0;
 		case SDLK_SPACE:
-			_jumpFrame = 0;
+			_yFrame = 0;
 			break;
 		}
 		break;
@@ -84,19 +76,19 @@ void Entity_Mario::Update(float deltaTime, SDL_Event event)
 
 void Entity_Mario::RunningAnimation(float deltaTime)
 {
-	if (_jumpFrame == 0)
+	if (_yFrame == 0)
 	{
 		_animationDelay += deltaTime;
 		if (_animationDelay >= _animationDuration)
 		{
 			_animationDelay = 0.0f;
-			_currentFame++;
+			_currentFrame++;
 
-			if (_currentFame > 3)
+			if (_currentFrame > 3)
 			{
-				_currentFame = 0;
+				_currentFrame = 0;
 			}
 		}
-		_activeFrame = _currentFame * _singleSpriteWidth;
+		_xFrame = _currentFrame * _singleSpriteWidth;
 	}
 }
