@@ -3,7 +3,7 @@
 
 
 Entity_Mario::Entity_Mario(SDL_Renderer* renderer, const char* texturePath, Vector2D position)
-	:Entity(renderer, texturePath, position), _animationDuration(1.5f)
+	:Entity(renderer, texturePath, position), _animationDuration(20.5f)
 {
 }
 
@@ -15,15 +15,15 @@ Entity_Mario::~Entity_Mario()
 void Entity_Mario::Render()
 {
 	SDL_Rect portionOfSpriteSheet{ _activeFrame, _jumpFrame, _singleSpriteWidth, _singleSpriteHeight };
-	SDL_Rect sourceRect{ static_cast<int>(_Position.x), static_cast<int>(_Position.y), _singleSpriteWidth, _singleSpriteHeight };
+	//SDL_Rect sourceRect{ static_cast<int>(_Position.x), static_cast<int>(_Position.y), _singleSpriteWidth, _singleSpriteHeight };
 
 	if (_FacingDirection == FACING::RIGHT)
 	{
-		_Texture->Render(portionOfSpriteSheet, sourceRect, SDL_FLIP_HORIZONTAL);
+		_Texture->Render(portionOfSpriteSheet, (SDL_Rect)_SourceRect, SDL_FLIP_HORIZONTAL);
 	}
 	else
 	{
-		_Texture->Render(portionOfSpriteSheet, sourceRect, SDL_FLIP_NONE);
+		_Texture->Render(portionOfSpriteSheet, (SDL_Rect)_SourceRect, SDL_FLIP_NONE);
 	}
 }
 

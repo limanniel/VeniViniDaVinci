@@ -12,9 +12,8 @@ class Entity
 protected:
 	SDL_Renderer* _Renderer;
 	Texture2D* _Texture;
-	Vector2D _Position;
+	Rect2D _SourceRect;
 
-	SDL_Rect* _Rect;
 	bool _IsOnTheGround{ true };
 
 	// Movement
@@ -33,9 +32,7 @@ public:
 	virtual void Render();
 	virtual void Update(double deltaTime, SDL_Event event);
 
-	inline Vector2D GetPosition() const { return _Position; }
-	inline SDL_Rect* GetRect() const { return _Rect; }
-
+	inline Rect2D GetSDLRect() const { return _SourceRect; }
 	inline void SetIsOnTheGround(bool state) { _IsOnTheGround = state; }
 
 };

@@ -37,15 +37,25 @@ struct Vector2D
 struct Rect2D
 {
 	float x, y;
-	int width, height;
+	int w, h;
 
+	Rect2D()
+	{
+		x = 0.0f;
+		y = 0.0f;
+		w = 0;
+		h = 0;
+	}
 	Rect2D(float X, float Y, int Width, int Height)
 	{
 		x = X;
 		y = Y;
-		width = Width;
-		height = Height;
+		w = Width;
+		h = Height;
 	}
+
+	// Make Rect2D castable onto SDL_Rect
+	explicit operator SDL_Rect() { return SDL_Rect{ (int)x, (int)y, w, h }; }
 };
 
 struct Circle2D
