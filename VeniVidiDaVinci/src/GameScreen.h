@@ -27,7 +27,7 @@ public:
 	virtual ~GameScreen();
 
 	virtual void Render();
-	virtual void Update(float deltaTime, SDL_Event event);
+	virtual void Update(double deltaTime, SDL_Event event);
 
 
 	inline bool CheckWhetherToQuit() const { return QUIT_GAME; }

@@ -3,8 +3,6 @@
 GameScreenLevel2::GameScreenLevel2(SDL_Renderer* renderer)
 	: GameScreen(renderer)
 {
-	//_tiles.reserve(MAP_HEIGHT * MAP_WIDTH);
-
 	LoadLevel();
 }
 
@@ -22,7 +20,7 @@ void GameScreenLevel2::Render()
 	}
 }
 
-void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
+void GameScreenLevel2::Update(double deltaTime, SDL_Event event)
 {
 	_mario->Update(deltaTime, event);
 }
@@ -52,7 +50,7 @@ void GameScreenLevel2::LoadLevel()
 			switch (TileType)
 			{
 			case static_cast<char>(TileTypes::NONE) :
-				_tiles.push_back(new Tile(mRenderer, TileTypes::NONE, Vector2D(xPos, yPos)));
+				//_tiles.push_back(new Tile(mRenderer, TileTypes::NONE, Vector2D(xPos, yPos)));
 				break;
 			case static_cast<char>(TileTypes::PLATFORM) :
 				_tiles.push_back(new Tile(mRenderer, TileTypes::PLATFORM, Vector2D(xPos, yPos)));

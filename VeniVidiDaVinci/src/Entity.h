@@ -13,17 +13,17 @@ protected:
 	Vector2D _Position;
 
 	// Movement
-	int _MovementSpeed{ 150 };
+	float _MovementSpeed{ 0.20f };
 	FACING _FacingDirection{FACING::RIGHT};
 	bool _MovingLeft{ false }, _MovingRight{ false };
-	void MoveLeft(float deltaTime);
-	void MoveRight(float deltaTime);
+	void MoveLeft(double deltaTime);
+	void MoveRight(double deltaTime);
 
 public:
 	Entity(SDL_Renderer* renderer, const char* texturePath, Vector2D position);
 	virtual ~Entity();
 
 	virtual void Render();
-	virtual void Update(float deltaTime, SDL_Event event);
+	virtual void Update(double deltaTime, SDL_Event event);
 };
 

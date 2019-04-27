@@ -3,7 +3,7 @@
 
 
 Entity_Mario::Entity_Mario(SDL_Renderer* renderer, const char* texturePath, Vector2D position)
-	:Entity(renderer, texturePath, position), _animationDuration(0.05f)
+	:Entity(renderer, texturePath, position), _animationDuration(0.50f)
 {
 }
 
@@ -27,7 +27,7 @@ void Entity_Mario::Render()
 	}
 }
 
-void Entity_Mario::Update(float deltaTime, SDL_Event event)
+void Entity_Mario::Update(double deltaTime, SDL_Event event)
 {
 	Entity::Update(deltaTime, event);
 
@@ -77,11 +77,11 @@ void Entity_Mario::Update(float deltaTime, SDL_Event event)
 
 }
 
-void Entity_Mario::RunningAnimation(float deltaTime)
+void Entity_Mario::RunningAnimation(double deltaTime)
 {
 	if (_jumpFrame == 0)
 	{
-		_animationDelay += deltaTime * 10;
+		_animationDelay += deltaTime;
 		if (_animationDelay >= _animationDuration)
 		{
 			_animationDelay = 0.0f;

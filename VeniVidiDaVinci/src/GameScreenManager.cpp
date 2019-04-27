@@ -20,7 +20,7 @@ GameScreenManager::~GameScreenManager()
 	mRenderer = nullptr;
 }
 
-void GameScreenManager::Update(float deltaTime, SDL_Event event)
+void GameScreenManager::Update(double deltaTime, SDL_Event event)
 {
 	mCurrentScreen->Update(deltaTime, event);
 	if (mCurrentScreen->CheckWhetherToQuit())

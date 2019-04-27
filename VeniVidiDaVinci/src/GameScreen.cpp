@@ -18,7 +18,7 @@ GameScreen::~GameScreen()
 	mRenderer = nullptr;
 }
 
-void GameScreen::Update(float deltaTime, SDL_Event event)
+void GameScreen::Update(double deltaTime, SDL_Event event)
 {
 }
 

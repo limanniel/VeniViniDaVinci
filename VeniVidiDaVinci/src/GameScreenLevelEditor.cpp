@@ -84,7 +84,7 @@ void GameScreenLevelEditor::Render()
 	_tiles[_ActiveBlock]->Render(Vector2D(39.0f, 458.0f));
 }
 
-void GameScreenLevelEditor::Update(float deltaTime, SDL_Event event)
+void GameScreenLevelEditor::Update(double deltaTime, SDL_Event event)
 {
 	int mousePosX{ 0 }, mousePosY{ 0 };
 	SDL_GetMouseState(&mousePosX, &mousePosY);

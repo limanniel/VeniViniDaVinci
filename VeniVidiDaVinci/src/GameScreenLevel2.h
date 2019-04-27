@@ -20,7 +20,7 @@ public:
 	~GameScreenLevel2();
 
 	void Render();
-	void Update(float deltaTime, SDL_Event event);
+	void Update(double deltaTime, SDL_Event event);
 
 };
 

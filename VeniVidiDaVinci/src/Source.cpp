@@ -10,7 +10,7 @@
 SDL_Window* gWindow = nullptr;
 SDL_Renderer* gRenderer = nullptr;
 GameScreenManager* gameScrenManager = nullptr;
-Uint32 gOldTime; // Delta Time
+Uint64 gOldTime; // Delta Time
 Mix_Music* gMusic = nullptr;
 
 //Function Prototypes
@@ -24,8 +24,8 @@ int main(int argc, char* args[])
 {
 	//Check if SDL was set up correctly
 	if (InitSDL()) {
-		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL2);
-		gOldTime = SDL_GetTicks();
+		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_MENU);
+		gOldTime = 0;
 		//LoadMusic("resources/Sounds/Mario.mp3");
 		if (Mix_PlayingMusic() == 0) {
 			Mix_PlayMusic(gMusic, -1);
@@ -105,7 +105,7 @@ bool InitSDL()
 
 void LoadMusic(const char* path)
 {
-	gMusic = Mix_LoadMUS(path);
+	//gMusic = Mix_LoadMUS(path);
 	if (gMusic == nullptr) {
 		std::cerr << "Failed to load background music! Error: " << Mix_GetError() << std::endl;
 	}
@@ -139,7 +139,7 @@ void CloseSDL()
 bool Update()
 {
 	//Get the new time
-	Uint32 newTime = SDL_GetTicks();
+	Uint64 newTime = SDL_GetPerformanceCounter();
 
 	//Event Handler
 	SDL_Event event;
@@ -162,7 +162,7 @@ bool Update()
 	//		//break;
 	//	}
 	}
-	gameScrenManager->Update((float)(newTime - gOldTime) / 1000.0, event);
+	gameScrenManager->Update(static_cast<double>((newTime - gOldTime)*1000) / static_cast<double>(SDL_GetPerformanceFrequency()), event);
 	gOldTime = newTime;
 
 	if (gameScrenManager->CheckWhetherToQuit())

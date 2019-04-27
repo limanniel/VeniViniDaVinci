@@ -24,7 +24,7 @@ void Entity::Render()
 		_Texture->Render(_Position, SDL_FLIP_HORIZONTAL, 0.0f);
 }
 
-void Entity::Update(float deltaTime, SDL_Event event)
+void Entity::Update(double deltaTime, SDL_Event event)
 {
 	if (_MovingLeft)
 	{
@@ -36,13 +36,13 @@ void Entity::Update(float deltaTime, SDL_Event event)
 	}
 }
 
-void Entity::MoveLeft(float deltaTime)
+void Entity::MoveLeft(double deltaTime)
 {
 	_FacingDirection = FACING::LEFT;
 	_Position.x -= _MovementSpeed * deltaTime;
 }
 
-void Entity::MoveRight(float deltaTime)
+void Entity::MoveRight(double deltaTime)
 {
 	_FacingDirection = FACING::RIGHT;
 	_Position.x += _MovementSpeed * deltaTime;

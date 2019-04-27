@@ -21,7 +21,7 @@ public:
 	~GameScreenManager();
 
 	void Render();
-	void Update(float deltaTime, SDL_Event event);
+	void Update(double deltaTime, SDL_Event event);
 	void ChangeScreen(SCREENS newScreen);
 
 	inline bool CheckWhetherToQuit() const { return QUIT_GAME; }
