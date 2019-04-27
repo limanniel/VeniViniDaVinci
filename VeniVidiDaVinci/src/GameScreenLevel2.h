@@ -1,6 +1,7 @@
 #pragma once
 #include "GameScreen.h"
 #include "Entity_Mario.h"
+#include "Entity_Koopa.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -11,6 +12,7 @@ class GameScreenLevel2 : public GameScreen
 private:
 	std::vector<Tile*> _tiles;
 	Entity_Mario* _mario{ nullptr };
+	Entity_Koopa* _koopa{ nullptr };
 
 	void LoadLevel();
  
@@ -20,7 +22,7 @@ public:
 	~GameScreenLevel2();
 
 	void Render();
-	void Update(double deltaTime, SDL_Event event);
+	void Update(float deltaTime, SDL_Event event);
 
 };
 

@@ -36,7 +36,7 @@ void GameScreenMainMenu::Render()
 
 }
 
-void GameScreenMainMenu::Update(double deltaTime, SDL_Event event)
+void GameScreenMainMenu::Update(float deltaTime, SDL_Event event)
 {
 	// Grab mouse position and make SourceRect out of it.
 	int x, y;

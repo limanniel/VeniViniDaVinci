@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entity_Koopa.cpp" />
     <ClCompile Include="src\Entity_Mario.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\GameScreenLevel2.cpp" />
@@ -161,6 +162,7 @@
     <Library Include="src\Libs\SDL\SDL2_ttf.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity_Koopa.h" />
     <ClInclude Include="src\Entity_Mario.h" />
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameScreenLevel2.h" />

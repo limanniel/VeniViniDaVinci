@@ -162,7 +162,7 @@ bool Update()
 	//		//break;
 	//	}
 	}
-	gameScrenManager->Update((double)((newTime - gOldTime) * 1000 / (double)SDL_GetPerformanceFrequency()), event);
+	gameScrenManager->Update((float)((newTime - gOldTime) * 1000 / (float)SDL_GetPerformanceFrequency()), event);
 	gOldTime = newTime;
 
 	if (gameScrenManager->CheckWhetherToQuit())

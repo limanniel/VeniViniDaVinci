@@ -85,7 +85,7 @@ void Character::MoveRight(float deltaTime)
 void Character::AddGravity(float deltaTime)
 {
 	if (mPosition.y + mTexture->GetHeight() <= SCREEN_HEIGHT) {
-		mPosition.y += GRAVITY_FORCE * deltaTime;
+		mPosition.y += INITIAL_GRAVITY_FORCE * deltaTime;
 		mCanJump = false;
 	}
 	else if (mPosition.y + mTexture->GetHeight() >= SCREEN_HEIGHT) {

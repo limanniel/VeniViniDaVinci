@@ -16,11 +16,12 @@ void GameScreenLevel2::Render()
 	for (unsigned int i = 0; i < _tiles.size(); i++)
 	{
 		_tiles[i]->Render();
-		_mario->Render();
 	}
+		_mario->Render();
+		_koopa->Render();
 }
 
-void GameScreenLevel2::Update(double deltaTime, SDL_Event event)
+void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 {
 	// Check Whether Mario is on the ground
 	for (unsigned int i = 0; i < _tiles.size(); i++)
@@ -28,14 +29,17 @@ void GameScreenLevel2::Update(double deltaTime, SDL_Event event)
 		if (Collisions::Instance()->Box(_mario->GetSDLRect(), *_tiles[i]->GetSourceRect()))
 		{
 			_mario->SetIsOnTheGround(true);
+			_mario->SetIfCanJump(true);
 			break;
 		}
 		else
 		{
 			_mario->SetIsOnTheGround(false);
+			_mario->SetIfCanJump(false);
 		}
 	}
 	_mario->Update(deltaTime, event);
+	_koopa->Update(deltaTime, event);
 }
 
 void GameScreenLevel2::LoadLevel()
@@ -50,13 +54,13 @@ void GameScreenLevel2::LoadLevel()
 	
 	file.seekg(std::ios::beg);
 
-	int xPos = 0;
-	int yPos = 0;
+	float xPos = 0.0f;
+	float yPos = 0.0f;
 	while (file >> std::noskipws >> TileType) 
 	{
 		if (TileType == '\n') {
 			yPos += TILE_WIDTH;
-			xPos = 0;
+			xPos = 0.0f;
 		}
 
 		else {
@@ -80,8 +84,11 @@ void GameScreenLevel2::LoadLevel()
 			case static_cast<char>(TileTypes::LEFT_PIPE) :
 				_tiles.push_back(new Tile(mRenderer, TileTypes::LEFT_PIPE, Vector2D(xPos, yPos)));
 				break;
-				case static_cast<char>(TileTypes::MARIO_SPAWN) :
-					_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 9));
+			case static_cast<char>(TileTypes::MARIO_SPAWN) :
+				_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 100));
+				break;
+			case static_cast<char>(TileTypes::KOOPA_SPAWN) :
+				_koopa = new Entity_Koopa(mRenderer, "resources/Images/Koopa.png", Vector2D(xPos, yPos));
 				break;
 
 			default:

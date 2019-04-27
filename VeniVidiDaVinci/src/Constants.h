@@ -11,9 +11,13 @@
 #define TILE_HEIGHT 32
 
 //Jump Related Stuff
-#define JUMP_FORCE_DECREMENT 400.0f
-#define INITIAL_JUMP_FORCE 400.0f
-#define GRAVITY_FORCE 0.5f
+#define JUMP_FORCE_DECREMENT 12.0f
+#define INITIAL_JUMP_FORCE 48.0f
+
+// Gravity
+#define INITIAL_GRAVITY_FORCE 0.05f
+#define GRAVITY_INCREMENT 0.05f
+#define TERMINAL_GRAVITY_FORCE 0.5f
 
 //Character Data
 #define AMOUNT_OF_PLAYERS 2

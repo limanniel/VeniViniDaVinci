@@ -24,7 +24,7 @@ GameScreenLevel1::~GameScreenLevel1()
 	mPowBlock = nullptr;
 }
 
-void GameScreenLevel1::Update(double deltaTime, SDL_Event event)
+void GameScreenLevel1::Update(float deltaTime, SDL_Event event)
 {
 	//Update the player
 	for (int i = 0; i < AMOUNT_OF_PLAYERS; i++) {

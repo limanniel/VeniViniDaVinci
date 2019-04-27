@@ -51,6 +51,6 @@ public:
 	~GameScreenLevel1();
 
 	void Render();
-	void Update(double deltaTime, SDL_Event event);
+	void Update(float deltaTime, SDL_Event event);
 
 };

@@ -5,7 +5,7 @@ Entity::Entity(SDL_Renderer* renderer, const char* texturePath, Vector2D positio
 	_Renderer = renderer;
 	_Texture = new Texture2D(_Renderer);
 	_Texture->LoadFromFile(texturePath);
-	_SourceRect = Rect2D(position.x, position.y, 32, 42);
+	
 }
 
 
@@ -23,11 +23,27 @@ void Entity::Render()
 		_Texture->Render(_SourceRect, SDL_FLIP_HORIZONTAL, 0.0f);
 }
 
-void Entity::Update(double deltaTime, SDL_Event event)
+void Entity::Update(float deltaTime, SDL_Event event)
 {
+	// Check if Entity is on the ground, if no then add Gravity to pull it down
 	if (!_IsOnTheGround)
 	{
 		AddGravity(deltaTime);
+	}
+
+	else
+	{
+		_GravityForce = INITIAL_GRAVITY_FORCE;
+	}
+	
+	if (_IsJumping)
+	{
+		_SourceRect.y -= _JumpForce * deltaTime;
+		_JumpForce -= (JUMP_FORCE_DECREMENT / 2)* deltaTime;
+		if (_JumpForce <= 0.0f)
+		{
+			_IsJumping = false;
+		}
 	}
 
 	if (_MovingLeft)
@@ -40,19 +56,34 @@ void Entity::Update(double deltaTime, SDL_Event event)
 	}
 }
 
-void Entity::MoveLeft(double deltaTime)
+void Entity::MoveLeft(float deltaTime)
 {
 	_FacingDirection = FACING::LEFT;
 	_SourceRect.x -= _MovementSpeed * deltaTime;
 }
 
-void Entity::MoveRight(double deltaTime)
+void Entity::MoveRight(float deltaTime)
 {
 	_FacingDirection = FACING::RIGHT;
 	_SourceRect.x += _MovementSpeed * deltaTime;
 }
 
-void Entity::AddGravity(double deltaTime)
+void Entity::AddGravity(float deltaTime)
 {
-	_SourceRect.y += GRAVITY_FORCE * deltaTime;
+	if (_GravityForce < TERMINAL_GRAVITY_FORCE)
+	{
+		_GravityForce += GRAVITY_INCREMENT * deltaTime;
+	}
+	_SourceRect.y += _GravityForce * deltaTime;
 }
+
+void Entity::Jump()
+{
+	if (!_IsJumping)
+	{
+		_JumpForce = INITIAL_JUMP_FORCE;
+		_IsJumping = true;
+		_CanJump = false;
+	}
+}
+
