@@ -78,14 +78,6 @@ bool Entity_Koopa::Collision(void* blockRef, TileTypes type)
 			return true;
 		}
 
-		//// If you Jump collide with any block
-		//else if (Collisions::Instance()->Box(characterHeadRect, *BlockTile->GetRect()))
-		//{
-		//	CancelJump();
-		//	_IsOnTheGround = false;
-		//	return false;
-		//}
-
 		// Character is airborne 
 		else
 		{

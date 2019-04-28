@@ -17,8 +17,9 @@ private:
 
 	// Object Holders
 	std::vector<Tile*> _tiles;
+	std::vector<Entity_Koopa*> _koopas;
 	Entity_Mario* _mario{ nullptr };
-	Entity_Koopa* _koopa{ nullptr };
+	//Entity_Koopa* _koopa{ nullptr };
 
 	// Screen Shake
 	bool _Screenshake{ false };

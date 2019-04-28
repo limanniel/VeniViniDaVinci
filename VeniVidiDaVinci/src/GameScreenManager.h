@@ -3,10 +3,11 @@
 #include "Commons.h"
 
 class GameScreen;
-class GameScreenLevel1;
 class GameScreenMainMenu;
 class GameScreenLevelEditor;
+class GameScreenLevel1;
 class GameScreenLevel2;
+class GameScreenGameOver;
 
 class GameScreenManager
 {

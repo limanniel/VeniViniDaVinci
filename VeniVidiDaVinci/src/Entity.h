@@ -16,6 +16,7 @@ protected:
 	Vector2D _Position;
 	SDL_Rect* _SourceRect{ nullptr };
 	bool _IsOnTheGround{ true };
+	bool _Triggered{ false };
 
 	// Movement
 	float _MovementSpeed{ 0.15f };
@@ -57,5 +58,7 @@ public:
 	virtual bool Collision(void* blockRef, TileTypes type) = 0;
 	inline bool IsOnTheGround() const { return _IsOnTheGround; }
 
+	inline void SetTriggered(bool state) { _Triggered = state; }
+	inline bool GetTriggered() const { return _Triggered; }
 };
 

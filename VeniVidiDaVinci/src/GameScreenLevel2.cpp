@@ -14,6 +14,7 @@ GameScreenLevel2::GameScreenLevel2(SDL_Renderer* renderer)
 GameScreenLevel2::~GameScreenLevel2()
 {
 	_tiles.clear();
+	_koopas.clear();
 	delete _bgTexture;
 	_bgTexture = nullptr;
 	delete _HUDTexture;
@@ -33,8 +34,13 @@ void GameScreenLevel2::Render()
 		{
 			_tiles[i]->Render(1.0f, shake);
 		}
+
 		_mario->Render();
-		_koopa->Render();
+
+		for (unsigned int i = 0; i < _koopas.size(); i++)
+		{
+			_koopas[i]->Render();
+		}
 	}
 	else
 	{
@@ -42,17 +48,28 @@ void GameScreenLevel2::Render()
 		{
 			_tiles[i]->Render();
 		}
+
 		_mario->Render();
-		_koopa->Render();
+
+		for (unsigned int i = 0; i < _koopas.size(); i++)
+		{
+			_koopas[i]->Render();
+		}
 	}
 }
 
 void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 {
-	bool marioTriggered{ false }, koopaTriggered{ false };
 	// Check Whether Mario is on the ground
 	for (unsigned int i = 0; i < _tiles.size(); i++)
 	{
+		// Check Collision with platform blocks each entity once
+		if (!_mario->GetTriggered())
+		{
+			_mario->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+			if (_mario->IsOnTheGround())
+				_mario->SetTriggered(true);
+		}
 		// If block is pow tile
 		if (typeid(*_tiles[i]) == typeid(Tile_POW))
 		{
@@ -61,7 +78,12 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 			{
 				if (_mario->Collision((void*)_tiles[i], TileTypes::POW))
 				{
-					_koopa->SetIfInjured(true);
+					// Injure Koopas after smashing POW Block
+					for (unsigned int i = 0; i < _koopas.size(); i++)
+					{
+						_koopas[i]->SetIfInjured(true);
+					}
+					
 					if (!_Screenshake)
 					{
 						DoScreenWobble();
@@ -79,31 +101,48 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 			static_cast<Tile_Coin*>(_tiles[i])->Update(deltaTime);
 			if (_mario->Collision((void*)_tiles[i], TileTypes::COIN))
 			{
+				// Remove picked-up coin
 				_tiles.erase(_tiles.begin() + i);
 			}
 		}
 
-		// Check Collision with platform blocks
-		if (!marioTriggered)
+		for (unsigned int j = 0; j < _koopas.size(); j++)
 		{
-			_mario->Collision((void*)_tiles[i], TileTypes::PLATFORM);
-			if (_mario->IsOnTheGround())
+			if (!_koopas[j]->GetTriggered())
 			{
-				marioTriggered = true;
+				_koopas[j]->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+				if (_koopas[j]->IsOnTheGround())
+					_koopas[j]->SetTriggered(true);
 			}
 		}
-		if (!koopaTriggered)
+	}
+	_mario->SetTriggered(false);
+
+	for (unsigned int i = 0; i < _koopas.size(); i++)
+	{
+		_koopas[i]->SetTriggered(false);
+		if (Collisions::Instance()->Box(*_mario->GetRect(), *_koopas[i]->GetRect()))
 		{
-			_koopa->Collision((void*)_tiles[i], TileTypes::PLATFORM);
-			if (_koopa->IsOnTheGround())
-				koopaTriggered = true;
+			// if koopa injured, kill koopa instead
+			if (_koopas[i]->GetIfInjured())
+			{
+				_koopas.erase(_koopas.begin() + i);
+			}
+			// get killed by enemy
+			else
+			{
+				SCREEN = SCREENS::SCREEN_GAMEOVER;
+				SCREEN_CHANGE = true;
+			}
 		}
 	}
-	marioTriggered = false;
-	koopaTriggered = false;
+	// Check if any enemy collided with mario and vice versa
 
 	_mario->Update(deltaTime, event);
-	_koopa->Update(deltaTime, event);
+	for (unsigned int i = 0; i < _koopas.size(); i++)
+	{
+		_koopas[i]->Update(deltaTime, event);
+	}
 
 	if (_Screenshake)
 	{
@@ -111,10 +150,7 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 		_Wobble++;
 
 		if (_ScreenshakeTime <= 0.0f)
-		{
 			_Screenshake = false;
-		}
-		
 	}
 }
 
@@ -162,7 +198,7 @@ void GameScreenLevel2::LoadLevel()
 				_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 50));
 				break;
 			case static_cast<char>(TileTypes::KOOPA_SPAWN) :
-				_koopa = new Entity_Koopa(mRenderer, "resources/Images/Koopa.png", Vector2D(xPos, yPos));
+				_koopas.push_back(new Entity_Koopa(mRenderer, "resources/Images/Koopa.png", Vector2D(xPos, yPos)));
 				break;
 
 			default:
