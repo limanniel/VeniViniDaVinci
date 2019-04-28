@@ -74,31 +74,72 @@ void Entity_Mario::Update(float deltaTime, SDL_Event event)
 
 }
 
-void Entity_Mario::Collision(Tile& blockRef)
+void Entity_Mario::Collision(void* blockRef, TileTypes type)
 {
-	SDL_Rect characterHeadRect{ (int)_Position.x, (int)_Position.y, _singleSpriteWidth, _singleSpriteHeight };
-	SDL_Rect characterFeetRect{ (int)_Position.x + _singleSpriteWidth / 2, (int)_Position.y + _singleSpriteHeight, 1, 1 };
-	SDL_Rect objectTopRect{ (int)blockRef.GetSourceRect()->x, (int)blockRef.GetSourceRect()->y, (int)blockRef.GetSourceRect()->w, 1 };
-
-	// Check if on the top of the block
-	if (Collisions::Instance()->Box(characterFeetRect, objectTopRect))
+	if (type == TileTypes::PLATFORM)
 	{
-		_CanJump = true;
-		_IsOnTheGround = true;
+		auto BlockTile = static_cast<Tile*>(blockRef);
+
+		SDL_Rect characterHeadRect{ (int)_Position.x, (int)_Position.y, _singleSpriteWidth, _singleSpriteHeight };
+		SDL_Rect characterFeetRect{ (int)_Position.x + _singleSpriteWidth / 2, (int)_Position.y + _singleSpriteHeight, 1, 1 };
+		SDL_Rect objectTopRect{ (int)BlockTile->GetRect()->x, (int)BlockTile->GetRect()->y, (int)BlockTile->GetRect()->w, 1 };
+
+		// Check if on the top of the block
+		if (Collisions::Instance()->Box(characterFeetRect, objectTopRect))
+		{
+			_CanJump = true;
+			_IsOnTheGround = true;
+			_TriggeredBlock = false;
+		}
+
+		// If you Jump collide with any block
+		else if (Collisions::Instance()->Box(characterHeadRect, *BlockTile->GetRect()))
+		{
+			CancelJump();
+			_IsOnTheGround = false;
+		}
+
+		// Character is airborne 
+		else
+		{
+			_CanJump = false;
+			_IsOnTheGround = false;
+		}
 	}
 
-	// If you Jump collide with any block
-	else if (Collisions::Instance()->Box(characterHeadRect, *blockRef.GetSourceRect()))
+	else if (type == TileTypes::POW)
 	{
-		CancelJump();
-		_IsOnTheGround = false;
-	}
+		auto BlockTile = static_cast<Tile_POW*>(blockRef);
 
-	// Character is airborne 
-	else
-	{
-		_CanJump = false;
-		_IsOnTheGround = false;
+		SDL_Rect characterHeadRect{ (int)_Position.x, (int)_Position.y, _singleSpriteWidth, _singleSpriteHeight };
+		SDL_Rect characterFeetRect{ (int)_Position.x + _singleSpriteWidth / 2, (int)_Position.y + _singleSpriteHeight, 1, 1 };
+		SDL_Rect objectTopRect{ (int)BlockTile->GetRect()->x, (int)BlockTile->GetRect()->y, (int)BlockTile->GetRect()->w, 1 };
+
+		// Check if on the top of the block
+		if (Collisions::Instance()->Box(characterFeetRect, objectTopRect))
+		{
+			_CanJump = true;
+			_IsOnTheGround = true;
+		}
+
+		// If you Jump collide with any block
+		else if (Collisions::Instance()->Box(characterHeadRect, *BlockTile->GetRect()))
+		{
+			if (!_TriggeredBlock)
+			{
+				BlockTile->TakeAHit();
+				_TriggeredBlock = true;
+			}
+			CancelJump();
+			_IsOnTheGround = false;
+		}
+
+		// Character is airborne 
+		else
+		{
+			_CanJump = false;
+			_IsOnTheGround = false;
+		}
 	}
 }
 

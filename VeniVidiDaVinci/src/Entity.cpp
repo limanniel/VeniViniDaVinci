@@ -72,11 +72,6 @@ void Entity::CancelJump()
 	_IsJumping = false;
 }
 
-void Entity::Collision(Tile& blockRef)
-{
-	
-}
-
 void Entity::MoveLeft(float deltaTime)
 {
 	_FacingDirection = FACING::LEFT;

@@ -3,10 +3,12 @@
 #include "Entity_Mario.h"
 #include "Entity_Koopa.h"
 #include "Entity_POW.h"
+#include "Tile.h"
+#include "Tile_POW.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "Tile.h"
+#include <typeinfo>
 
 class GameScreenLevel2 : public GameScreen
 {

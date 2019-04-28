@@ -23,7 +23,7 @@ void Entity_POW::Update(float deltaTime, SDL_Event event)
 
 }
 
-void Entity_POW::Collision(Tile& blockRef)
+void Entity_POW::Collision(void* blockRef, TileTypes type)
 {
 }
 

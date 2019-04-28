@@ -4,7 +4,7 @@
 #include "Commons.h"
 #include "Constants.h"
 #include "Texture2D.h"
-#include "Tile.h"
+#include "Tile_POW.h"
 #include "Collisions.h"
 
 class Entity
@@ -53,7 +53,7 @@ public:
 	inline bool IsJumping() const { return _IsJumping; }
 	void CancelJump();
 
-	virtual void Collision(Tile& blockRef) = 0;
+	virtual void Collision(void* blockRef, TileTypes type) = 0;
 	inline bool IsOnTheGround() const { return _IsOnTheGround; }
 
 };

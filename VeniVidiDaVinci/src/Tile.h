@@ -5,7 +5,7 @@
 
 class Tile
 {
-private:
+protected:
 	int _width, _height;
 	Texture2D* _texture;
 	SDL_Rect* _sourceRect{ nullptr };
@@ -14,11 +14,11 @@ private:
 public:
 	Tile(Texture2D* texture, Vector2D position = {0,0});
 	Tile(SDL_Renderer* renderer, TileTypes type, Vector2D position = { 0,0 });
-	~Tile();
+	virtual ~Tile();
 
-	void Render(Vector2D position);
-	void Render();
+	virtual void Render(Vector2D position);
+	virtual void Render();
 
-	inline SDL_Rect* GetSourceRect() const { return _sourceRect; }
+	inline SDL_Rect* GetRect() const { return _sourceRect; }
 };
 

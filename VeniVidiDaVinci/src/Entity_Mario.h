@@ -5,6 +5,7 @@ class Entity_Mario : public Entity
 {
 private:
 	void RunningAnimation(float deltaTime);
+	bool _TriggeredBlock{ false };
 
 public:
 	Entity_Mario(SDL_Renderer* renderer, const char* texturePath, Vector2D position);
@@ -12,6 +13,6 @@ public:
 
 	void Render() override;
 	void Update(float deltaTime, SDL_Event event) override;
-	void Collision(Tile& blockRef) override;
+	void Collision(void* blockRef, TileTypes type) override;
 };
 

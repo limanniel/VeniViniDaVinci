@@ -11,7 +11,7 @@ public:
 
 	void Render() override;
 	void Update(float deltaTime, SDL_Event event) override;
-	void Collision(Tile& blockRef) override;
+	void Collision(void* blockRef, TileTypes type) override;
 
 	inline bool IsAvailable() const { return _NumberOfHitsLeft > 0; }
 	void TakeAHit();

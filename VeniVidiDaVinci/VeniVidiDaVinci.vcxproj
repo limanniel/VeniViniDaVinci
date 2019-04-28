@@ -154,6 +154,7 @@
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\Texture2D.cpp" />
     <ClCompile Include="src\Tile.cpp" />
+    <ClCompile Include="src\Tile_POW.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="src\Libs\SDL\SDL2.lib" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\Texture2D.h" />
     <ClInclude Include="src\Tile.h" />
+    <ClInclude Include="src\Tile_POW.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

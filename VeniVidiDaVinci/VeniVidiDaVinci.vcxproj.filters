@@ -108,6 +108,9 @@
     <ClCompile Include="src\Entity_POW.cpp">
       <Filter>Source Files\Reworked Characters</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tile_POW.cpp">
+      <Filter>Source Files\LevelEditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="src\Libs\SDL\SDL2.lib" />
@@ -188,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="src\Entity_POW.h">
       <Filter>Header Files\Reworked Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tile_POW.h">
+      <Filter>Header Files\LevelEditor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

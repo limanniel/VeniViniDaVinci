@@ -58,7 +58,7 @@ void Entity_Koopa::Update(float deltaTime, SDL_Event event)
 	}
 }
 
-void Entity_Koopa::Collision(Tile& blockRef)
+void Entity_Koopa::Collision(void* blockRef, TileTypes type)
 {
 }
 
