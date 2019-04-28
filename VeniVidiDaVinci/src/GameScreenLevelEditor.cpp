@@ -21,6 +21,7 @@ GameScreenLevelEditor::GameScreenLevelEditor(SDL_Renderer* renderer)
 	_HUDBlockName[3]->CreateText("Right Pipe");
 	_HUDBlockName[4]->CreateText("Left Pipe");
 	_HUDBlockName[5]->CreateText("Mario Spawner");
+	_HUDBlockName[6]->CreateText("Koopa Spawner");
 
 	_levelMap = new LevelMap(map);
 
@@ -113,7 +114,6 @@ void GameScreenLevelEditor::Update(float deltaTime, SDL_Event event)
 			}
 		}
 	}
-		
 
 	// Limit Window area for edition to Level Editor only + take offset for mouse
 	if (mousePosX < SCREEN_WIDTH && mousePosY < SCREEN_HEIGHT - 100) {

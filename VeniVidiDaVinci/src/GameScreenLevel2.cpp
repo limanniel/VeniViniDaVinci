@@ -49,6 +49,7 @@ void GameScreenLevel2::Render()
 
 void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 {
+	bool marioTriggered{ false }, koopaTriggered{ false };
 	// Check Whether Mario is on the ground
 	for (unsigned int i = 0; i < _tiles.size(); i++)
 	{
@@ -83,12 +84,23 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 		}
 
 		// Check Collision with platform blocks
-		_mario->Collision((void*)_tiles[i], TileTypes::PLATFORM);
-		if (_mario->IsOnTheGround())
+		if (!marioTriggered)
 		{
-			break;
+			_mario->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+			if (_mario->IsOnTheGround())
+			{
+				marioTriggered = true;
+			}
+		}
+		if (!koopaTriggered)
+		{
+			_koopa->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+			if (_koopa->IsOnTheGround())
+				koopaTriggered = true;
 		}
 	}
+	marioTriggered = false;
+	koopaTriggered = false;
 
 	_mario->Update(deltaTime, event);
 	_koopa->Update(deltaTime, event);
