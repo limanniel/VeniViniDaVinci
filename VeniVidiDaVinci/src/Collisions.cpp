@@ -5,6 +5,7 @@ Collisions* Collisions::mInstance = nullptr;
 
 Collisions::Collisions()
 {
+	boxResult = { 0, 0, 0, 0 };
 }
 
 Collisions::~Collisions()

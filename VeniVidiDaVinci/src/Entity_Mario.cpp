@@ -74,6 +74,34 @@ void Entity_Mario::Update(float deltaTime, SDL_Event event)
 
 }
 
+void Entity_Mario::Collision(Tile& blockRef)
+{
+	SDL_Rect characterHeadRect{ (int)_Position.x, (int)_Position.y, _singleSpriteWidth, _singleSpriteHeight };
+	SDL_Rect characterFeetRect{ (int)_Position.x + _singleSpriteWidth / 2, (int)_Position.y + _singleSpriteHeight, 1, 1 };
+	SDL_Rect objectTopRect{ (int)blockRef.GetSourceRect()->x, (int)blockRef.GetSourceRect()->y, (int)blockRef.GetSourceRect()->w, 1 };
+
+	// Check if on the top of the block
+	if (Collisions::Instance()->Box(characterFeetRect, objectTopRect))
+	{
+		_CanJump = true;
+		_IsOnTheGround = true;
+	}
+
+	// If you Jump collide with any block
+	else if (Collisions::Instance()->Box(characterHeadRect, *blockRef.GetSourceRect()))
+	{
+		CancelJump();
+		_IsOnTheGround = false;
+	}
+
+	// Character is airborne 
+	else
+	{
+		_CanJump = false;
+		_IsOnTheGround = false;
+	}
+}
+
 void Entity_Mario::RunningAnimation(float deltaTime)
 {
 	if (_yFrame == 0)

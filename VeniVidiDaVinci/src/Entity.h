@@ -50,6 +50,11 @@ public:
 	inline SDL_Rect* GetRect() const { return _SourceRect; }
 	inline void SetIsOnTheGround(bool state) { _IsOnTheGround = state; }
 	inline void SetIfCanJump(bool state) { _CanJump = state; }
+	inline bool IsJumping() const { return _IsJumping; }
+	void CancelJump();
+
+	virtual void Collision(Tile& blockRef) = 0;
+	inline bool IsOnTheGround() const { return _IsOnTheGround; }
 
 };
 

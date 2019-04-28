@@ -55,6 +55,7 @@ void Entity::Update(float deltaTime, SDL_Event event)
 		}
 	}
 
+	
 	if (_MovingLeft)
 	{
 		MoveLeft(deltaTime);
@@ -63,6 +64,17 @@ void Entity::Update(float deltaTime, SDL_Event event)
 	{
 		MoveRight(deltaTime);
 	}
+	
+}
+
+void Entity::CancelJump()
+{
+	_IsJumping = false;
+}
+
+void Entity::Collision(Tile& blockRef)
+{
+	
 }
 
 void Entity::MoveLeft(float deltaTime)
@@ -73,7 +85,6 @@ void Entity::MoveLeft(float deltaTime)
 
 void Entity::MoveRight(float deltaTime)
 {
-	std::cout << "x: " << _SourceRect->x << std::endl;
 	_FacingDirection = FACING::RIGHT;
 	_Position.x += _MovementSpeed * deltaTime;
 }
@@ -96,4 +107,5 @@ void Entity::Jump()
 		_CanJump = false;
 	}
 }
+
 

@@ -66,11 +66,11 @@ GameScreenLevelEditor::~GameScreenLevelEditor()
 
 void GameScreenLevelEditor::Render()
 {
-	int yPos = 0;
+	float yPos = 0.0f;
 
 	for (unsigned int i = 0; i < MAP_HEIGHT; i++)
 	{
-		int xPos = 0;
+		float xPos = 0.0f;
 		for (unsigned int j = 0; j < MAP_WIDTH; j++) {
 			_tiles[_levelMap->GetTileAt(i, j)]->Render(Vector2D(xPos, yPos));
 			xPos += TILE_WIDTH;

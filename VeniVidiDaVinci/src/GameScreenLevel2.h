@@ -2,6 +2,7 @@
 #include "GameScreen.h"
 #include "Entity_Mario.h"
 #include "Entity_Koopa.h"
+#include "Entity_POW.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -11,6 +12,7 @@ class GameScreenLevel2 : public GameScreen
 {
 private:
 	std::vector<Tile*> _tiles;
+	std::vector<Entity_POW*> _powBlocks;
 	Entity_Mario* _mario{ nullptr };
 	Entity_Koopa* _koopa{ nullptr };
 
