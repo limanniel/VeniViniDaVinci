@@ -8,7 +8,7 @@ Entity_Koopa::Entity_Koopa(SDL_Renderer* renderer, const char* texturePath, Vect
 	_singleSpriteHeight = 32;
 	_MovementSpeed = 0.15f;
 	_animationDuration = 150.0f;
-	_SourceRect = Rect2D(position.x, position.y, _singleSpriteWidth, _singleSpriteHeight);
+	_SourceRect = new SDL_Rect{(int)position.x, (int)position.y, _singleSpriteWidth, _singleSpriteHeight};
 }
 
 
@@ -67,7 +67,7 @@ void Entity_Koopa::FlipRightwayUp()
 
 void Entity_Koopa::CheckIfMapBoundryIsHit()
 {
-	if (_SourceRect.x < 0 || _SourceRect.x + _singleSpriteWidth >= SCREEN_WIDTH)
+	if (_Position.x <= 0 || _Position.x + _singleSpriteWidth >= SCREEN_WIDTH)
 	{
 		_FacingDirection = _FacingDirection == FACING::LEFT ? FACING::RIGHT : FACING::LEFT;
 	}

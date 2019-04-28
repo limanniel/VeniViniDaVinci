@@ -23,7 +23,7 @@ public:
 	bool LoadFromFile(const char* path);
 	void Free();
 	void Render(Vector2D newPosition, SDL_RendererFlip flip, double angle = 0.0f);
-	void Render(Rect2D sourceRect, SDL_RendererFlip flip, double angle = 0.0f);
+	void Render(SDL_Rect sourceRect, SDL_RendererFlip flip, double angle = 0.0f);
 	void Render(SDL_Rect sourceRect, SDL_Rect positionRect, SDL_RendererFlip flip, double angle = 0.0f);
 
 	// Getters

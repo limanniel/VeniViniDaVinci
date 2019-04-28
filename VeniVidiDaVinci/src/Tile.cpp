@@ -7,7 +7,7 @@ Tile::Tile(Texture2D* texture, Vector2D position)
 	_texture = texture;
 	_width = _texture->GetWidth();
 	_height = _texture->GetHeight();
-	_sourceRect = new Rect2D(position.x, position.y, _width, _height);
+	_sourceRect = new SDL_Rect{ (int)position.x, (int)position.y, _width, _height };
 }
 
 Tile::Tile(SDL_Renderer* renderer, TileTypes type, Vector2D position)
@@ -41,7 +41,7 @@ Tile::Tile(SDL_Renderer* renderer, TileTypes type, Vector2D position)
 	}
 	_width = _texture->GetWidth();
 	_height = _texture->GetHeight();
-	_sourceRect = new Rect2D(position.x, position.y, _width, _height);
+	_sourceRect = new SDL_Rect{ (int)position.x, (int)position.y, _width, _height };
 }
 
 

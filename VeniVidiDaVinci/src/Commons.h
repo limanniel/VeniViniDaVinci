@@ -16,7 +16,6 @@
 //		y = initialY;
 //	}
 //};
-
 struct Vector2D
 {
 	float x, y;
@@ -53,9 +52,6 @@ struct Rect2D
 		w = Width;
 		h = Height;
 	}
-
-	// Make Rect2D castable onto SDL_Rect
-	explicit operator SDL_Rect() { return SDL_Rect{ (int)x, (int)y, w, h }; }
 };
 
 struct Circle2D

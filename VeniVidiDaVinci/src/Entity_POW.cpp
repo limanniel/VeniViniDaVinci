@@ -5,7 +5,7 @@ Entity_POW::Entity_POW(SDL_Renderer* renderer, const char* texturePath, Vector2D
 {
 	_singleSpriteWidth = 32;
 	_singleSpriteHeight = 32;
-	_SourceRect = new Rect2D(position.x, position.y, _singleSpriteWidth, _singleSpriteHeight);
+	_SourceRect = new SDL_Rect{ (int)position.x, (int)position.y, _singleSpriteWidth, _singleSpriteHeight };
 }
 
 

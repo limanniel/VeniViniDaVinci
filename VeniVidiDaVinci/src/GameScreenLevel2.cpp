@@ -26,7 +26,7 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 	// Check Whether Mario is on the ground
 	for (unsigned int i = 0; i < _tiles.size(); i++)
 	{
-		if (Collisions::Instance()->Box(_mario->GetSDLRect(), *_tiles[i]->GetSourceRect()))
+		if (Collisions::Instance()->Box(*_mario->GetRect(), *_tiles[i]->GetSourceRect()))
 		{
 			_mario->SetIsOnTheGround(true);
 			_mario->SetIfCanJump(true);
@@ -37,6 +37,17 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 			_mario->SetIsOnTheGround(false);
 			_mario->SetIfCanJump(false);
 		}
+	/*	if (Collisions::Instance()->Box(_mario->GetRect(), *_tiles[i]->GetSourceRect()))
+		{
+			_mario->SetIsOnTheGround(true);
+			_mario->SetIfCanJump(true);
+			break;
+		}
+		else
+		{
+			_mario->SetIsOnTheGround(false);
+			_mario->SetIfCanJump(false);
+		}*/
 	}
 	_mario->Update(deltaTime, event);
 	_koopa->Update(deltaTime, event);
@@ -85,7 +96,7 @@ void GameScreenLevel2::LoadLevel()
 				_tiles.push_back(new Tile(mRenderer, TileTypes::LEFT_PIPE, Vector2D(xPos, yPos)));
 				break;
 			case static_cast<char>(TileTypes::MARIO_SPAWN) :
-				_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 100));
+				_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 50));
 				break;
 			case static_cast<char>(TileTypes::KOOPA_SPAWN) :
 				_koopa = new Entity_Koopa(mRenderer, "resources/Images/Koopa.png", Vector2D(xPos, yPos));

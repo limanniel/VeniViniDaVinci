@@ -7,9 +7,9 @@ Entity_Mario::Entity_Mario(SDL_Renderer* renderer, const char* texturePath, Vect
 {
 	_singleSpriteWidth = 32;
 	_singleSpriteHeight = 42;
-	_MovementSpeed = 0.18f;
+	_MovementSpeed = 0.17f;
 	_animationDuration = 1.5f;
-	_SourceRect = Rect2D(position.x, position.y, _singleSpriteWidth, _singleSpriteHeight);
+	_SourceRect = new SDL_Rect{ (int)position.x, (int)position.y, _singleSpriteWidth, _singleSpriteHeight };
 }
 
 

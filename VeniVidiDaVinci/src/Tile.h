@@ -8,7 +8,7 @@ class Tile
 private:
 	int _width, _height;
 	Texture2D* _texture;
-	Rect2D* _sourceRect{ nullptr };
+	SDL_Rect* _sourceRect{ nullptr };
 
 
 public:
@@ -19,6 +19,6 @@ public:
 	void Render(Vector2D position);
 	void Render();
 
-	inline Rect2D* GetSourceRect() const { return _sourceRect; }
+	inline SDL_Rect* GetSourceRect() const { return _sourceRect; }
 };
 
