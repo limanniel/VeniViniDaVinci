@@ -1,8 +1,0 @@
-Blocks:
-
-1)Mario Spawn
-2)Luigi Spawn
-3)Koopa Spawner
-4)Goomba/SideStepper
-5)Block
-6)Pow

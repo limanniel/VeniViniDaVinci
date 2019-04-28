@@ -1,5 +1,15 @@
 #include "GameScreen.h"
 
+Mix_Music* GameScreen::LoadMusic(Mix_Music* musicVar, const char* path)
+{
+	if (musicVar != nullptr)
+	{
+		delete musicVar;
+	}
+	musicVar = Mix_LoadMUS(path);
+	return musicVar;
+}
+
 GameScreen::GameScreen(SDL_Renderer* renderer)
 	: mRenderer(renderer)
 {
@@ -14,6 +24,8 @@ GameScreen::~GameScreen()
 
 	TTF_CloseFont(MarioFont);
 	MarioFont = nullptr;
+
+	Mix_FreeMusic(_backgroundMusic);
 
 	mRenderer = nullptr;
 }

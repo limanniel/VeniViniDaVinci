@@ -134,6 +134,7 @@
     <ClCompile Include="src\Entity_Koopa.cpp" />
     <ClCompile Include="src\Entity_Mario.cpp" />
     <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\Entity_SideStepper.cpp" />
     <ClCompile Include="src\GameScreenGameOver.cpp" />
     <ClCompile Include="src\GameScreenLevel2.cpp" />
     <ClCompile Include="src\GameScreenLevelEditor.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="src\Entity_Koopa.h" />
     <ClInclude Include="src\Entity_Mario.h" />
     <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\Entity_SideStepper.h" />
     <ClInclude Include="src\GameScreenGameOver.h" />
     <ClInclude Include="src\GameScreenLevel2.h" />
     <ClInclude Include="src\GameScreenLevelEditor.h" />

@@ -21,7 +21,7 @@ GameScreenLevelEditor::GameScreenLevelEditor(SDL_Renderer* renderer)
 	_HUDBlockName[3]->CreateText("Right Pipe");
 	_HUDBlockName[4]->CreateText("Left Pipe");
 	_HUDBlockName[5]->CreateText("Mario Spawner");
-	_HUDBlockName[6]->CreateText("Koopa Spawner");
+	_HUDBlockName[6]->CreateText("Koopa Spawn");
 
 	_levelMap = new LevelMap(map);
 
@@ -39,6 +39,12 @@ GameScreenLevelEditor::GameScreenLevelEditor(SDL_Renderer* renderer)
 	_HUDSaveMap->CreateText("Save Map");
 	_HUDPlayLevel = new Text(renderer, MarioFont, new SDL_Rect{ 350, 435, 128, 18 });
 	_HUDPlayLevel->CreateText("Play Level");
+
+	_backgroundMusic = LoadMusic(_backgroundMusic, "resources/Sounds/LevelEditor.ogg");
+	if (Mix_PlayingMusic() == 0)
+	{
+		Mix_PlayMusic(_backgroundMusic, -1);
+	}
 }
 
 

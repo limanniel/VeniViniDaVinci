@@ -2,6 +2,7 @@
 #include "GameScreen.h"
 #include "Entity_Mario.h"
 #include "Entity_Koopa.h"
+#include "Entity_SideStepper.h"
 #include "Tile_POW.h"
 #include "Tile_Coin.h"
 #include <iostream>
@@ -18,6 +19,7 @@ private:
 	// Object Holders
 	std::vector<Tile*> _tiles;
 	std::vector<Entity_Koopa*> _koopas;
+	std::vector<Entity_SideStepper*>_sideSteppers;
 	Entity_Mario* _mario{ nullptr };
 
 

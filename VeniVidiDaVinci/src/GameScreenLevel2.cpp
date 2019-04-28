@@ -8,6 +8,12 @@ GameScreenLevel2::GameScreenLevel2(SDL_Renderer* renderer)
 	_bgTexture->LoadFromFile("resources/Images/Backgrounds/1.png");
 	_HUDTexture = new Texture2D(renderer);
 	_HUDTexture->LoadFromFile("resources/Images/HUD.png");
+
+	_backgroundMusic = LoadMusic(_backgroundMusic, "resources/Sounds/MarioUnderworld.ogg");
+	if (Mix_PlayingMusic() == 0)
+	{
+		Mix_PlayMusic(_backgroundMusic, -1);
+	}
 }
 
 

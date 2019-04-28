@@ -91,5 +91,6 @@ enum class TileTypes : char
 	RIGHT_PIPE = '4',
 	LEFT_PIPE = '5',
 	MARIO_SPAWN = '6',
-	KOOPA_SPAWN = '7'
+	KOOPA_SPAWN = '7',
+	SIDESTEPPER_SPAWN = '8'
 };

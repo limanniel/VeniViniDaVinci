@@ -90,6 +90,9 @@
     <ClCompile Include="src\GameScreenGameOver.cpp">
       <Filter>Source Files\Game Screens</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity_SideStepper.cpp">
+      <Filter>Source Files\Reworked Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="src\Libs\SDL\SDL2.lib" />
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="src\GameScreenGameOver.h">
       <Filter>Header Files\Game Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity_SideStepper.h">
+      <Filter>Header Files\Reworked Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

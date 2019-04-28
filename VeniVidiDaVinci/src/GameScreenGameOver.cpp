@@ -10,6 +10,12 @@ GameScreenGameOver::GameScreenGameOver(SDL_Renderer* renderer)
 
 	_ReturnToMainMenu = new Text(renderer, MarioFont, new SDL_Rect{ 50, 380, 412, 64 });
 	_ReturnToMainMenu->CreateText("Return to MainMenu", _textColour, _altTextColour);
+
+	_backgroundMusic = LoadMusic(_backgroundMusic, "resources/Sounds/GameOver.ogg");
+	if (Mix_PlayingMusic() == 0)
+	{
+		Mix_PlayMusic(_backgroundMusic, 0);
+	}
 }
 
 

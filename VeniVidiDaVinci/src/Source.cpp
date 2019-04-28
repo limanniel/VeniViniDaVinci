@@ -11,11 +11,9 @@ SDL_Window* gWindow = nullptr;
 SDL_Renderer* gRenderer = nullptr;
 GameScreenManager* gameScrenManager = nullptr;
 Uint64 gOldTime; // Delta Time
-Mix_Music* gMusic = nullptr;
 
 //Function Prototypes
 bool InitSDL();
-void LoadMusic(const char* path);
 void CloseSDL();
 bool Update();
 void Render();
@@ -24,12 +22,8 @@ int main(int argc, char* args[])
 {
 	//Check if SDL was set up correctly
 	if (InitSDL()) {
-		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL1);
+		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_MENU);
 		gOldTime = SDL_GetPerformanceCounter();
-		//LoadMusic("resources/Sounds/Mario.mp3");
-		if (Mix_PlayingMusic() == 0) {
-			Mix_PlayMusic(gMusic, -1);
-		}
 
 		// Flag to check whether to quit engine
 		bool quit = false;
@@ -103,14 +97,6 @@ bool InitSDL()
 	return true;
 }
 
-void LoadMusic(const char* path)
-{
-	//gMusic = Mix_LoadMUS(path);
-	if (gMusic == nullptr) {
-		std::cerr << "Failed to load background music! Error: " << Mix_GetError() << std::endl;
-	}
-}
-
 void CloseSDL()
 {
 	//Destroy game screen manager
@@ -118,8 +104,7 @@ void CloseSDL()
 	gameScrenManager = nullptr;
 
 	// Release Mixer
-	Mix_FreeMusic(gMusic);
-	gMusic = nullptr;
+	Mix_CloseAudio();
 
 	// Release renderer
 	SDL_DestroyRenderer(gRenderer);

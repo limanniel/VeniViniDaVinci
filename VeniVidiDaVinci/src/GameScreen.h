@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <iostream>
 #include <vector>
 #include "Commons.h"
@@ -17,10 +18,14 @@ protected:
 
 	int mPlayerScore{ 0 };
 	
+	// Managing Game Screen
 	bool SCREEN_CHANGE{ false };
 	SCREENS SCREEN{ SCREEN_MENU };
-
 	bool QUIT_GAME{ false };
+
+	// Sounds
+	Mix_Music* _backgroundMusic{ nullptr };
+	Mix_Music* LoadMusic(Mix_Music* musicVar, const char* path);
 
 public:
 	GameScreen(SDL_Renderer* renderer);

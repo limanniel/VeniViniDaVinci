@@ -8,6 +8,11 @@ GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer)
 	_bgTexture->LoadFromFile("resources/Images/Backgrounds/1.png");
 	_HUDTexture = new Texture2D(renderer);
 	_HUDTexture->LoadFromFile("resources/Images/HUD.png");
+	_backgroundMusic = LoadMusic(_backgroundMusic, "resources/Sounds/Mario.ogg");
+	if (Mix_PlayingMusic() == 0)
+	{
+		Mix_PlayMusic(_backgroundMusic, -1);
+	}
 }
 
 
@@ -40,6 +45,11 @@ void GameScreenLevel1::Render()
 			_koopas[i]->Render();
 		}
 
+		for (unsigned int i = 0; i < _sideSteppers.size(); i++)
+		{
+			_sideSteppers[i]->Render();
+		}
+
 		_mario->Render();
 	}
 	else
@@ -52,6 +62,11 @@ void GameScreenLevel1::Render()
 		for (unsigned int i = 0; i < _koopas.size(); i++)
 		{
 			_koopas[i]->Render();
+		}
+
+		for (unsigned int i = 0; i < _sideSteppers.size(); i++)
+		{
+			_sideSteppers[i]->Render();
 		}
 
 		_mario->Render();
@@ -124,9 +139,26 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event event)
 					_koopas[j]->SetTriggered(true);
 			}
 		}
+
+		for (unsigned int j = 0; j < _sideSteppers.size(); j++)
+		{
+			if (!_sideSteppers[j]->GetTriggered())
+			{
+				// If Tile is coin ignore collision check
+				if (typeid(*_tiles[i]) == typeid(Tile_Coin))
+					_sideSteppers[j]->Collision((void*)_tiles[i], TileTypes::COIN);
+				else
+					_sideSteppers[j]->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+
+				// Set triggered state so it doesn't get over-written
+				if (_sideSteppers[j]->IsOnTheGround())
+					_sideSteppers[j]->SetTriggered(true);
+			}
+		}
 	}
 	_mario->SetTriggered(false);
 
+	// Check if any enemy collided with mario and vice versa
 	for (unsigned int i = 0; i < _koopas.size(); i++)
 	{
 		_koopas[i]->SetTriggered(false);
@@ -145,12 +177,26 @@ void GameScreenLevel1::Update(float deltaTime, SDL_Event event)
 			}
 		}
 	}
-	// Check if any enemy collided with mario and vice versa
+
+	for (unsigned int i = 0; i < _sideSteppers.size(); i++)
+	{
+		_sideSteppers[i]->SetTriggered(false);
+		if (Collisions::Instance()->Box(*_mario->GetRect(), *_sideSteppers[i]->GetRect()))
+		{
+			SCREEN = SCREENS::SCREEN_GAMEOVER;
+			SCREEN_CHANGE = true;
+		}
+	}
 
 	_mario->Update(deltaTime, event);
 	for (unsigned int i = 0; i < _koopas.size(); i++)
 	{
 		_koopas[i]->Update(deltaTime, event);
+	}
+
+	for (unsigned int i = 0; i < _sideSteppers.size(); i++)
+	{
+		_sideSteppers[i]->Update(deltaTime, event);
 	}
 
 	if (_Screenshake)
@@ -207,10 +253,13 @@ void GameScreenLevel1::LoadLevel()
 				_tiles.push_back(new Tile(mRenderer, TileTypes::LEFT_PIPE, Vector2D(xPos, yPos)));
 				break;
 			case static_cast<char>(TileTypes::MARIO_SPAWN) :
-				_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 50));
+				_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 9));
 				break;
 			case static_cast<char>(TileTypes::KOOPA_SPAWN) :
 				_koopas.push_back(new Entity_Koopa(mRenderer, "resources/Images/Koopa.png", Vector2D(xPos, yPos)));
+				break;
+			case static_cast<char>(TileTypes::SIDESTEPPER_SPAWN) :
+				_sideSteppers.push_back(new Entity_SideStepper(mRenderer, "resources/Images/SideStepper.png", Vector2D(xPos, yPos)));
 				break;
 
 			default:
