@@ -139,17 +139,11 @@
     <ClCompile Include="src\GameScreenLevelEditor.cpp" />
     <ClCompile Include="src\GameScreenMainMenu.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
-    <ClCompile Include="src\Character.cpp" />
-    <ClCompile Include="src\CharacterCoin.cpp" />
-    <ClCompile Include="src\CharacterKoopa.cpp" />
-    <ClCompile Include="src\CharacterLuigi.cpp" />
-    <ClCompile Include="src\CharacterMario.cpp" />
     <ClCompile Include="src\Collisions.cpp" />
     <ClCompile Include="src\GameScreen.cpp" />
     <ClCompile Include="src\GameScreenLevel1.cpp" />
     <ClCompile Include="src\GameScreenManager.cpp" />
     <ClCompile Include="src\LevelMap.cpp" />
-    <ClCompile Include="src\PowBlock.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\Texture2D.cpp" />
@@ -174,11 +168,6 @@
     <ClInclude Include="src\GameScreenLevelEditor.h" />
     <ClInclude Include="src\GameScreenMainMenu.h" />
     <ClInclude Include="SoundEffect.h" />
-    <ClInclude Include="src\Character.h" />
-    <ClInclude Include="src\CharacterCoin.h" />
-    <ClInclude Include="src\CharacterKoopa.h" />
-    <ClInclude Include="src\CharacterLuigi.h" />
-    <ClInclude Include="src\CharacterMario.h" />
     <ClInclude Include="src\Collisions.h" />
     <ClInclude Include="src\Commons.h" />
     <ClInclude Include="src\Constants.h" />
@@ -186,7 +175,6 @@
     <ClInclude Include="src\GameScreenLevel1.h" />
     <ClInclude Include="src\GameScreenManager.h" />
     <ClInclude Include="src\LevelMap.h" />
-    <ClInclude Include="src\PowBlock.h" />
     <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\Texture2D.h" />
     <ClInclude Include="src\Tile.h" />

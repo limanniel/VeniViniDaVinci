@@ -138,6 +138,11 @@ bool Entity_Mario::Collision(void* blockRef, TileTypes type)
 			_IsOnTheGround = false;
 			return true;
 		}
+
+		else 
+		{
+			return false;
+		}
 	}
 
 	else if (type == TileTypes::COIN)
@@ -153,6 +158,11 @@ bool Entity_Mario::Collision(void* blockRef, TileTypes type)
 		{
 			return false;
 		}
+	}
+
+	else
+	{
+		return false;
 	}
 }
 

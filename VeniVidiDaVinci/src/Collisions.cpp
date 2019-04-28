@@ -1,5 +1,4 @@
 #include "Collisions.h"
-#include "Character.h" // forward declare
 
 Collisions* Collisions::mInstance = nullptr;
 
@@ -41,14 +40,14 @@ bool Collisions::Box(SDL_Rect& rect1, SDL_Rect& rect2)
 	return false;
 }
 
-bool Collisions::Circle(Character* character1, Character* character2)
-{
-	Vector2D vec = Vector2D((character1->GetPosition().x - character2->GetPosition().x), (character1->GetPosition().y - character2->GetPosition().y));
-	double distance = sqrt((vec.x*vec.x) + (vec.y*vec.y));
-	double combinedDistance = (character1->getCollisionRadius() + character2->getCollisionRadius());
-
-	return distance < combinedDistance;
-}
+//bool Collisions::Circle(Entity* character1, Entity* character2)
+//{
+//	Vector2D vec = Vector2D((character1->GetPosition().x - character2->GetPosition().x), (character1->GetPosition().y - character2->GetPosition().y));
+//	double distance = sqrt((vec.x*vec.x) + (vec.y*vec.y));
+//	double combinedDistance = (character1->getCollisionRadius() + character2->getCollisionRadius());
+//
+//	return distance < combinedDistance;
+//}
 
 bool Collisions::Circle(Circle2D circle1, Circle2D circle2)
 {
