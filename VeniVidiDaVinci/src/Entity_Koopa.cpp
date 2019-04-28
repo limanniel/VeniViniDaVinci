@@ -86,7 +86,26 @@ bool Entity_Koopa::Collision(void* blockRef, TileTypes type)
 			return false;
 		}
 	}
-	return false;
+
+	else if (type == TileTypes::COIN)
+	{
+		auto BlockTile = static_cast<Tile_Coin*>(blockRef);
+
+		// Check if collided with coin
+		if (Collisions::Instance()->Box(*_SourceRect, *BlockTile->GetRect()))
+		{
+			return false;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	else
+	{
+		return false;
+	}
 }
 
 void Entity_Koopa::FlipRightwayUp()

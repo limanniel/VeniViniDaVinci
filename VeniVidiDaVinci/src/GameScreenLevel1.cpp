@@ -1,237 +1,229 @@
 #include "GameScreenLevel1.h"
-#include "Character.h"  // Forward Declare
-#include "Texture2D.h" // Forward Declare
-#include "PowBlock.h" // Forward Declare
 
-GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer) : GameScreen(renderer)
+GameScreenLevel1::GameScreenLevel1(SDL_Renderer* renderer)
+	: GameScreen(renderer)
 {
-	mLevelMap = nullptr;
-	SetLevelMap();
-	SetUpLevel();
+	LoadLevel();
+	_bgTexture = new Texture2D(renderer);
+	_bgTexture->LoadFromFile("resources/Images/Backgrounds/1.png");
+	_HUDTexture = new Texture2D(renderer);
+	_HUDTexture->LoadFromFile("resources/Images/HUD.png");
 }
+
 
 GameScreenLevel1::~GameScreenLevel1()
 {
-	delete mBackgroundTexture;
-	for (int i = 0; i < AMOUNT_OF_PLAYERS; i++) {
-		delete playerCharacters[i];
-		playerCharacters[i] = nullptr;
-	}
-	mBackgroundTexture = nullptr;
-	mEnemies.clear();
-
-	delete mPowBlock;
-	mPowBlock = nullptr;
-}
-
-void GameScreenLevel1::Update(float deltaTime, SDL_Event event)
-{
-	//Update the player
-	for (int i = 0; i < AMOUNT_OF_PLAYERS; i++) {
-		playerCharacters[i]->Update(deltaTime, event);
-	}
-
-	// Screenshake
-	if (mScreenshake) {
-		mScreenshakeTime -= deltaTime;
-		mWobble++;
-		mBackgroundYPos = sin(mWobble);
-		mBackgroundYPos *= 3.0f;
-
-		// End shake
-		if (mScreenshakeTime <= 0.0f) {
-			mScreenshake = false;
-			mBackgroundYPos = 0.0f;
-		}
-	}
-
-	if (Collisions::Instance()->Circle(playerCharacters[0]->getCollisionCircle(), playerCharacters[1]->getCollisionCircle())) {
-		std::cerr << "Colliding!" << std::endl;
-	}
-
-	UpdatePOWBlock();
-	UpdateEnemies(deltaTime, event);
-	UpdateCoins(deltaTime, event);
+	_tiles.clear();
+	_koopas.clear();
+	delete _bgTexture;
+	_bgTexture = nullptr;
+	delete _HUDTexture;
+	_HUDTexture = nullptr;
+	delete _mario;
+	_mario = nullptr;
 }
 
 void GameScreenLevel1::Render()
 {
-	// Draw the background
-	mBackgroundTexture->Render(Vector2D(0, mBackgroundYPos), SDL_FLIP_NONE, 0.0f);
-	for (int i = 0; i < AMOUNT_OF_PLAYERS; i++) {
-		playerCharacters[i]->Render();
-	}
-
-	for (unsigned int i = 0; i < mEnemies.size(); i++)
+	_bgTexture->Render(Vector2D(0.0f, 0.0f), SDL_FLIP_NONE);
+	_HUDTexture->Render(Vector2D(0.0f, 412.0f), SDL_FLIP_NONE);
+	if (_Screenshake)
 	{
-		mEnemies[i]->Render();
-	}
-	for (unsigned int i = 0; i < mCoins.size(); i++)
-	{
-		mCoins[i]->Render();
-	}
-
-	mPowBlock->Render();
-}
-
-bool GameScreenLevel1::SetUpLevel()
-{
-	mBackgroundTexture = new Texture2D(mRenderer);
-	if (!mBackgroundTexture->LoadFromFile("resources/Images/BackgroundMB.png")) {
-		std::cout << "Failed to load background texture!";
-		return false;
-	}
-	// Set up player character
-	playerCharacters[0] = new CharacterMario(mRenderer, "resources/Images/Mario.png", Vector2D(412.0f, 250.0f), mLevelMap);
-	playerCharacters[1] = new CharacterLuigi(mRenderer, "resources/Images/Luigi.png", Vector2D(64.0f, 250.0f), mLevelMap);
-
-	// Set up our POW block
-	mPowBlock = new PowBlock(mRenderer, mLevelMap);
-	mScreenshake = false;
-	mBackgroundYPos = 0.0f;
-
-	return true;
-}
-
-void GameScreenLevel1::SetLevelMap()
-{
-	int map[MAP_HEIGHT][MAP_WIDTH] = { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-									   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-									   { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
-									   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-									   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-									   { 0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0 },
-									   { 1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1 },
-									   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-									   { 0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0 },
-									   { 1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1 },
-									   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-									   { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-									   { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 } };
-
-	//Clear up any old map
-	if (mLevelMap != nullptr) {
-		delete mLevelMap;
-	}
-
-	//Set the new one
-	mLevelMap = new LevelMap(map);
-
-	//Spawn initial enemies
-	SpawnEnemies();
-
-	//Create Coins
-	CreateCoin(Vector2D(126.0f, 200.0f));
-}
-
-void GameScreenLevel1::UpdateEnemies(float deltaTime, SDL_Event event)
-{
-	if (!mEnemies.empty()) {
-		int enemyIndexToDelete = -1;
-		for (unsigned int i = 0; i < mEnemies.size(); i++)
+		float shake = sin(_Wobble) * 1.5f;
+		for (unsigned int i = 0; i < _tiles.size(); i++)
 		{
-			// Check Whether enemy is on groundlevel
-			if (mEnemies[i]->GetPosition().y > 300.0f) {
-				if ((mEnemies[i]->GetPosition().x < 64.0f) || // If hits left pipe
-					(mEnemies[i]->GetPosition().x > SCREEN_WIDTH - 96.0f)) { // If hits right pipe
-					mEnemies[i]->SetAlive(false); // Set state of that enemy to be deleted
-				}
-			}
+			_tiles[i]->Render(1.0f, shake);
+		}
 
-			mEnemies[i]->Update(deltaTime, event);
-			for (int j = 0; j < AMOUNT_OF_PLAYERS; j++)
+		for (unsigned int i = 0; i < _koopas.size(); i++)
+		{
+			_koopas[i]->Render();
+		}
+
+		_mario->Render();
+	}
+	else
+	{
+		for (unsigned int i = 0; i < _tiles.size(); i++)
+		{
+			_tiles[i]->Render();
+		}
+
+		for (unsigned int i = 0; i < _koopas.size(); i++)
+		{
+			_koopas[i]->Render();
+		}
+
+		_mario->Render();
+	}
+}
+
+void GameScreenLevel1::Update(float deltaTime, SDL_Event event)
+{
+	// Check Whether Mario is on the ground
+	for (unsigned int i = 0; i < _tiles.size(); i++)
+	{
+		// Check Collision with platform blocks each entity once
+		if (!_mario->GetTriggered())
+		{
+			_mario->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+			if (_mario->IsOnTheGround())
+				_mario->SetTriggered(true);
+		}
+
+		// If block is pow tile
+		if (typeid(*_tiles[i]) == typeid(Tile_POW))
+		{
+			// Check collision against POW block and activate it if collided
+			if (static_cast<Tile_POW*>(_tiles[i])->IsAvailable())
 			{
-				// Injured Koopa Death
-				if (Collisions::Instance()->Circle(mEnemies[i], playerCharacters[j]) && mEnemies[i]->GetInjured()) {
-					mEnemies[i]->SetAlive(false);
-				}
-				// PLAYER DEATH
-				else {
-					
+				if (_mario->Collision((void*)_tiles[i], TileTypes::POW))
+				{
+					// Injure Koopas after smashing POW Block
+					for (unsigned int i = 0; i < _koopas.size(); i++)
+					{
+						_koopas[i]->SetIfInjured(true);
+					}
+
+					if (!_Screenshake)
+					{
+						DoScreenWobble();
+					}
 				}
 			}
+			// Remove POW Block is has no uses left
+			else
+				_tiles.erase(_tiles.begin() + i);
+		}
 
-			if (!mEnemies[i]->GetAlive()) {
-				enemyIndexToDelete = i;
+
+		// If block is coin tile
+		else if (typeid(*_tiles[i]) == typeid(Tile_Coin))
+		{
+			static_cast<Tile_Coin*>(_tiles[i])->Update(deltaTime);
+			if (_mario->Collision((void*)_tiles[i], TileTypes::COIN))
+			{
+				// Remove picked-up coin
+				_tiles.erase(_tiles.begin() + i);
 			}
+		}
 
-			// Delete dead enemies from vector array
-			if (enemyIndexToDelete != -1) {
-				mEnemies.erase(mEnemies.begin() + enemyIndexToDelete);
+
+		for (unsigned int j = 0; j < _koopas.size(); j++)
+		{
+			if (!_koopas[j]->GetTriggered())
+			{
+				// If Tile is coin ignore collision check
+				if (typeid(*_tiles[i]) == typeid(Tile_Coin))
+					_koopas[j]->Collision((void*)_tiles[i], TileTypes::COIN);
+				else
+					_koopas[j]->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+
+				// Set triggered state so it doesn't get over-written
+				if (_koopas[j]->IsOnTheGround())
+					_koopas[j]->SetTriggered(true);
 			}
 		}
 	}
-	SpawnEnemies();
-}
+	_mario->SetTriggered(false);
 
-void GameScreenLevel1::CreateKoopa(Vector2D position, FACING direction, float speed)
-{
-	CharacterKoopa* koopaCharacter = new CharacterKoopa(mRenderer, "resources/Images/Koopa.png", position, mLevelMap, direction, speed);
-	mEnemies.push_back(koopaCharacter);
-}
-
-void GameScreenLevel1::CreateCoin(Vector2D position)
-{
-	CharacterCoin* coin = new CharacterCoin(mRenderer, "resources/Images/Coin.png", position, mLevelMap);
-	mCoins.push_back(coin);
-}
-
-void GameScreenLevel1::SpawnEnemies()
-{
-	if (mEnemies.empty()) {
-		CreateKoopa(Vector2D(64.0f, 32.0f), FACING::RIGHT, KOOPA_SPEED);
-		CreateKoopa(Vector2D(416.0f, 32.0f), FACING::LEFT, KOOPA_SPEED);
-	}
-}
-
-void GameScreenLevel1::UpdatePOWBlock()
-{
-	for (int i = 0; i < AMOUNT_OF_PLAYERS; i++)
+	for (unsigned int i = 0; i < _koopas.size(); i++)
 	{
-		if (Collisions::Instance()->Box(playerCharacters[i]->getCollisionBox(), mPowBlock->GetCollisionBox())) {
-			if (mPowBlock->isAvailable()) {
-				// Collided whilst jumping
-				if (playerCharacters[i]->isJumping()) {
-					DoScreenShake();
-					mPowBlock->TakeAHit();
-					playerCharacters[i]->CancelJump();
-				}
+		_koopas[i]->SetTriggered(false);
+		if (Collisions::Instance()->Box(*_mario->GetRect(), *_koopas[i]->GetRect()))
+		{
+			// if koopa injured, kill koopa instead
+			if (_koopas[i]->GetIfInjured())
+			{
+				_koopas.erase(_koopas.begin() + i);
 			}
+			// get killed by enemy
+			else
+			{
+				SCREEN = SCREENS::SCREEN_GAMEOVER;
+				SCREEN_CHANGE = true;
+			}
+		}
+	}
+	// Check if any enemy collided with mario and vice versa
+
+	_mario->Update(deltaTime, event);
+	for (unsigned int i = 0; i < _koopas.size(); i++)
+	{
+		_koopas[i]->Update(deltaTime, event);
+	}
+
+	if (_Screenshake)
+	{
+		_ScreenshakeTime -= deltaTime;
+		_Wobble++;
+
+		if (_ScreenshakeTime <= 0.0f)
+			_Screenshake = false;
+	}
+}
+
+void GameScreenLevel1::LoadLevel()
+{
+	std::ifstream file;
+	file.open("resources/LevelEditor_Maps/FirstLevel.map", std::ios::in);
+	if (!file.is_open())
+	{
+		std::cerr << "File Map not found!" << std::endl;
+	}
+
+	char TileType{ ' ' };
+	file.seekg(std::ios::beg);
+
+	float xPos = 0.0f;
+	float yPos = 0.0f;
+	while (file >> std::noskipws >> TileType)
+	{
+		if (TileType == '\n')
+		{
+			yPos += TILE_WIDTH;
+			xPos = 0.0f;
+		}
+
+		else
+		{
+			switch (TileType)
+			{
+			case static_cast<char>(TileTypes::NONE) :
+				break;
+			case static_cast<char>(TileTypes::PLATFORM) :
+				_tiles.push_back(new Tile(mRenderer, TileTypes::PLATFORM, Vector2D(xPos, yPos)));
+				break;
+			case static_cast<char>(TileTypes::POW) :
+				_tiles.push_back(new Tile_POW(mRenderer, TileTypes::POW, Vector2D(xPos, yPos)));
+				break;
+			case static_cast<char>(TileTypes::COIN) :
+				_tiles.push_back(new Tile_Coin(mRenderer, TileTypes::COIN, Vector2D(xPos, yPos)));
+				break;
+			case static_cast<char>(TileTypes::RIGHT_PIPE) :
+				_tiles.push_back(new Tile(mRenderer, TileTypes::RIGHT_PIPE, Vector2D(xPos, yPos)));
+				break;
+			case static_cast<char>(TileTypes::LEFT_PIPE) :
+				_tiles.push_back(new Tile(mRenderer, TileTypes::LEFT_PIPE, Vector2D(xPos, yPos)));
+				break;
+			case static_cast<char>(TileTypes::MARIO_SPAWN) :
+				_mario = new Entity_Mario(mRenderer, "resources/Images/Mario.png", Vector2D(xPos, yPos - 50));
+				break;
+			case static_cast<char>(TileTypes::KOOPA_SPAWN) :
+				_koopas.push_back(new Entity_Koopa(mRenderer, "resources/Images/Koopa.png", Vector2D(xPos, yPos)));
+				break;
+
+			default:
+				break;
+			}
+			xPos += TILE_WIDTH;
 		}
 	}
 }
 
-void GameScreenLevel1::UpdateCoins(float deltaTime, SDL_Event event)
+void GameScreenLevel1::DoScreenWobble()
 {
-	int coinIndexToDelete{ -1 };
-	for (unsigned int i = 0; i < mCoins.size(); i++)
-	{
-		mCoins[i]->Update(deltaTime, event);
-
-		for (int j = 0; j < AMOUNT_OF_PLAYERS; j++) {
-			if (Collisions::Instance()->Box(playerCharacters[j]->getCollisionBox(), mCoins[i]->getCollisionBox())) {
-				mPlayerScore++;
-				mCoins[i]->SetCollected(true);
-
-				if (mCoins[i]->IsCollected()) {
-					coinIndexToDelete = i;
-				}
-			}
-		}
-		if (coinIndexToDelete != -1) {
-			mCoins.erase(mCoins.begin() + coinIndexToDelete);
-		}
-	}
-}
-
-void GameScreenLevel1::DoScreenShake()
-{
-	mScreenshake = true;
-	mScreenshakeTime = SCREENSHAKE_DURATION;
-	mWobble = 0.0f;
-
-	for (unsigned int i = 0; i < mEnemies.size(); i++)
-	{
-		mEnemies[i]->TakeDamage();
-	}
+	_Screenshake = true;
+	_ScreenshakeTime = SCREENSHAKE_DURATION;
+	_Wobble = 0.0f;
 }

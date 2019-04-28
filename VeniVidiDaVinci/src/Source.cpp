@@ -24,7 +24,7 @@ int main(int argc, char* args[])
 {
 	//Check if SDL was set up correctly
 	if (InitSDL()) {
-		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL2);
+		gameScrenManager = new GameScreenManager(gRenderer, SCREEN_LEVEL1);
 		gOldTime = SDL_GetPerformanceCounter();
 		//LoadMusic("resources/Sounds/Mario.mp3");
 		if (Mix_PlayingMusic() == 0) {

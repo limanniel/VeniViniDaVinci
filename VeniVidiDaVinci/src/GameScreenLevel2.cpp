@@ -35,12 +35,12 @@ void GameScreenLevel2::Render()
 			_tiles[i]->Render(1.0f, shake);
 		}
 
-		_mario->Render();
-
 		for (unsigned int i = 0; i < _koopas.size(); i++)
 		{
 			_koopas[i]->Render();
 		}
+
+		_mario->Render();
 	}
 	else
 	{
@@ -49,12 +49,12 @@ void GameScreenLevel2::Render()
 			_tiles[i]->Render();
 		}
 
-		_mario->Render();
-
 		for (unsigned int i = 0; i < _koopas.size(); i++)
 		{
 			_koopas[i]->Render();
 		}
+
+		_mario->Render();
 	}
 }
 
@@ -113,7 +113,13 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 		{
 			if (!_koopas[j]->GetTriggered())
 			{
-				_koopas[j]->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+				// If Tile is coin ignore collision check
+				if (typeid(*_tiles[i]) == typeid(Tile_Coin))
+					_koopas[j]->Collision((void*)_tiles[i], TileTypes::COIN);
+				else
+					_koopas[j]->Collision((void*)_tiles[i], TileTypes::PLATFORM);
+
+				// Set triggered state so it doesn't get over-written
 				if (_koopas[j]->IsOnTheGround())
 					_koopas[j]->SetTriggered(true);
 			}
