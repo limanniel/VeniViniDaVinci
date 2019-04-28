@@ -74,7 +74,7 @@ void Entity_Mario::Update(float deltaTime, SDL_Event event)
 
 }
 
-void Entity_Mario::Collision(void* blockRef, TileTypes type)
+bool Entity_Mario::Collision(void* blockRef, TileTypes type)
 {
 	if (type == TileTypes::PLATFORM)
 	{
@@ -90,6 +90,7 @@ void Entity_Mario::Collision(void* blockRef, TileTypes type)
 			_CanJump = true;
 			_IsOnTheGround = true;
 			_TriggeredBlock = false;
+			return true;
 		}
 
 		// If you Jump collide with any block
@@ -97,6 +98,7 @@ void Entity_Mario::Collision(void* blockRef, TileTypes type)
 		{
 			CancelJump();
 			_IsOnTheGround = false;
+			return false;
 		}
 
 		// Character is airborne 
@@ -104,6 +106,7 @@ void Entity_Mario::Collision(void* blockRef, TileTypes type)
 		{
 			_CanJump = false;
 			_IsOnTheGround = false;
+			return false;
 		}
 	}
 
@@ -120,6 +123,7 @@ void Entity_Mario::Collision(void* blockRef, TileTypes type)
 		{
 			_CanJump = true;
 			_IsOnTheGround = true;
+			return false;
 		}
 
 		// If you Jump collide with any block
@@ -132,6 +136,7 @@ void Entity_Mario::Collision(void* blockRef, TileTypes type)
 			}
 			CancelJump();
 			_IsOnTheGround = false;
+			return true;
 		}
 
 		// Character is airborne 
@@ -139,6 +144,7 @@ void Entity_Mario::Collision(void* blockRef, TileTypes type)
 		{
 			_CanJump = false;
 			_IsOnTheGround = false;
+			return false;
 		}
 	}
 }

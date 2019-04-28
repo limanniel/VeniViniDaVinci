@@ -13,16 +13,25 @@ GameScreenLevel2::~GameScreenLevel2()
 
 void GameScreenLevel2::Render()
 {
-	for (unsigned int i = 0; i < _tiles.size(); i++)
+	if (_Screenshake)
 	{
-		_tiles[i]->Render();
-	}
-	for (unsigned int i = 0; i < _powBlocks.size(); i++)
-	{
-		_powBlocks[i]->Render();
-	}
+		float shake = sin(_Wobble) * 1.5f;
+		for (unsigned int i = 0; i < _tiles.size(); i++)
+		{
+			_tiles[i]->Render(1.0f, shake);
+		}
 		_mario->Render();
 		_koopa->Render();
+	}
+	else
+	{
+		for (unsigned int i = 0; i < _tiles.size(); i++)
+		{
+			_tiles[i]->Render();
+		}
+		_mario->Render();
+		_koopa->Render();
+	}
 }
 
 void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
@@ -30,16 +39,28 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 	// Check Whether Mario is on the ground
 	for (unsigned int i = 0; i < _tiles.size(); i++)
 	{
+		// If block is pow block
 		if (typeid(*_tiles[i]) == typeid(Tile_POW))
 		{
+			// Check collision against POW block and activate it if collided
 			if (static_cast<Tile_POW*>(_tiles[i])->IsAvailable())
-				_mario->Collision((void*)_tiles[i], TileTypes::POW);
+			{
+				if (_mario->Collision((void*)_tiles[i], TileTypes::POW))
+				{
+					if (!_Screenshake)
+					{
+						DoScreenWobble();
+					}
+				}
+			}
+			
+			// Remove POW Block is has no uses left
 			else
 				_tiles.erase(_tiles.begin() + i);
 		}
 
+		// Check Collision with platform blocks
 		_mario->Collision((void*)_tiles[i], TileTypes::PLATFORM);
-		
 		if (_mario->IsOnTheGround())
 		{
 			break;
@@ -48,6 +69,18 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 
 	_mario->Update(deltaTime, event);
 	_koopa->Update(deltaTime, event);
+
+	if (_Screenshake)
+	{
+		_ScreenshakeTime -= deltaTime;
+		_Wobble++;
+
+		if (_ScreenshakeTime <= 0.0f)
+		{
+			_Screenshake = false;
+		}
+		
+	}
 }
 
 void GameScreenLevel2::LoadLevel()
@@ -59,7 +92,6 @@ void GameScreenLevel2::LoadLevel()
 	}
 
 	char TileType{ ' ' };
-	
 	file.seekg(std::ios::beg);
 
 	float xPos = 0.0f;
@@ -75,7 +107,6 @@ void GameScreenLevel2::LoadLevel()
 			switch (TileType)
 			{
 			case static_cast<char>(TileTypes::NONE) :
-				//_tiles.push_back(new Tile(mRenderer, TileTypes::NONE, Vector2D(xPos, yPos)));
 				break;
 			case static_cast<char>(TileTypes::PLATFORM) :
 				_tiles.push_back(new Tile(mRenderer, TileTypes::PLATFORM, Vector2D(xPos, yPos)));
@@ -105,4 +136,11 @@ void GameScreenLevel2::LoadLevel()
 			xPos += TILE_WIDTH;
 		}
 	}
+}
+
+void GameScreenLevel2::DoScreenWobble()
+{
+	_Screenshake = true;
+	_ScreenshakeTime = SCREENSHAKE_DURATION;
+	_Wobble = 0.0f;
 }

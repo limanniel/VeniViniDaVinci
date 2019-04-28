@@ -17,7 +17,7 @@ public:
 	virtual ~Tile();
 
 	virtual void Render(Vector2D position);
-	virtual void Render();
+	virtual void Render(float xOffset = 0.0f, float yOffset = 0.0f);
 
 	inline SDL_Rect* GetRect() const { return _sourceRect; }
 };

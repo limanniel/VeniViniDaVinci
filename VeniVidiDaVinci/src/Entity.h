@@ -53,7 +53,7 @@ public:
 	inline bool IsJumping() const { return _IsJumping; }
 	void CancelJump();
 
-	virtual void Collision(void* blockRef, TileTypes type) = 0;
+	virtual bool Collision(void* blockRef, TileTypes type) = 0;
 	inline bool IsOnTheGround() const { return _IsOnTheGround; }
 
 };

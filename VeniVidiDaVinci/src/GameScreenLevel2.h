@@ -2,7 +2,6 @@
 #include "GameScreen.h"
 #include "Entity_Mario.h"
 #include "Entity_Koopa.h"
-#include "Entity_POW.h"
 #include "Tile.h"
 #include "Tile_POW.h"
 #include <iostream>
@@ -14,12 +13,15 @@ class GameScreenLevel2 : public GameScreen
 {
 private:
 	std::vector<Tile*> _tiles;
-	std::vector<Entity_POW*> _powBlocks;
 	Entity_Mario* _mario{ nullptr };
 	Entity_Koopa* _koopa{ nullptr };
 
 	void LoadLevel();
- 
+
+	bool _Screenshake{ false };
+	float _ScreenshakeTime{ 0.0f };
+	float _Wobble{ 0.0f };
+	void DoScreenWobble();
 
 public:
 	GameScreenLevel2(SDL_Renderer* renderer);

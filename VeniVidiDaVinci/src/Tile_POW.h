@@ -11,7 +11,8 @@ public:
 	Tile_POW(SDL_Renderer* renderer, TileTypes type, Vector2D position);
 	~Tile_POW();
 
-	void Render();
+	void Render(float xOffset = 0.0f, float yOffset = 0.0f) override;
+
 	void TakeAHit();
 	inline bool IsAvailable() const { return _NumberOfHitsLeft > 0; }
 };

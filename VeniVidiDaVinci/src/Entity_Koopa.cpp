@@ -58,8 +58,9 @@ void Entity_Koopa::Update(float deltaTime, SDL_Event event)
 	}
 }
 
-void Entity_Koopa::Collision(void* blockRef, TileTypes type)
+bool Entity_Koopa::Collision(void* blockRef, TileTypes type)
 {
+	return false;
 }
 
 void Entity_Koopa::FlipRightwayUp()

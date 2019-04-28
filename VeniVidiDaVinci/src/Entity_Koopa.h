@@ -4,7 +4,7 @@ class Entity_Koopa : public Entity
 {
 private:
 	bool _IsAlive{ true };
-	bool _IsInjured{ true };
+	bool _IsInjured{ false };
 	float _InjuredTime{ 5000.0f };
 	float _KnockedAnimationDuration{ 150.0f };
 
@@ -20,6 +20,6 @@ public:
 
 	void Render() override;
 	void Update(float deltaTime, SDL_Event event) override;
-	void Collision(void* blockRef, TileTypes type) override;
+	bool Collision(void* blockRef, TileTypes type) override;
 };
 

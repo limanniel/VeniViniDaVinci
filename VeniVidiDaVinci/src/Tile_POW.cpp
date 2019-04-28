@@ -13,7 +13,7 @@ Tile_POW::~Tile_POW()
 {
 }
 
-void Tile_POW::Render()
+void Tile_POW::Render(float xOffset, float yOffset)
 {
 	SDL_Rect partOfSpriteSheet{ _textureOffset * _sourceRect->w, 0, _sourceRect->w, _height };
 	_texture->Render(partOfSpriteSheet, *_sourceRect, SDL_FLIP_NONE);
