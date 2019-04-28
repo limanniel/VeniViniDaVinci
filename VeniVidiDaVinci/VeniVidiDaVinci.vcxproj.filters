@@ -105,6 +105,9 @@
     <ClCompile Include="src\Entity_Koopa.cpp">
       <Filter>Source Files\Reworked Characters</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity_POW.cpp">
+      <Filter>Source Files\Reworked Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="src\Libs\SDL\SDL2.lib" />
@@ -181,6 +184,9 @@
       <Filter>Header Files\Reworked Characters</Filter>
     </ClInclude>
     <ClInclude Include="src\Entity_Koopa.h">
+      <Filter>Header Files\Reworked Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Entity_POW.h">
       <Filter>Header Files\Reworked Characters</Filter>
     </ClInclude>
   </ItemGroup>
