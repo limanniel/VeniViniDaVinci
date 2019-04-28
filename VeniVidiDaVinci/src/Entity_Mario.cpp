@@ -80,9 +80,9 @@ bool Entity_Mario::Collision(void* blockRef, TileTypes type)
 	{
 		auto BlockTile = static_cast<Tile*>(blockRef);
 
-		SDL_Rect characterHeadRect{ (int)_Position.x, (int)_Position.y, _singleSpriteWidth, _singleSpriteHeight };
+		SDL_Rect characterHeadRect{ (int)_Position.x + _singleSpriteWidth / 2, (int)_Position.y, 1, 1 };
 		SDL_Rect characterFeetRect{ (int)_Position.x + _singleSpriteWidth / 2, (int)_Position.y + _singleSpriteHeight, 1, 2 };
-		SDL_Rect objectTopRect{ (int)BlockTile->GetRect()->x, (int)BlockTile->GetRect()->y, (int)BlockTile->GetRect()->w, 1 };
+		SDL_Rect objectTopRect{ (int)BlockTile->GetRect()->x, (int)BlockTile->GetRect()->y, (int)BlockTile->GetRect()->w, 5 };
 
 		// Check if on the top of the block
 		if (Collisions::Instance()->Box(characterFeetRect, objectTopRect))
@@ -110,7 +110,7 @@ bool Entity_Mario::Collision(void* blockRef, TileTypes type)
 		}
 	}
 
-	else if (type == TileTypes::POW)
+	if (type == TileTypes::POW)
 	{
 		auto BlockTile = static_cast<Tile_POW*>(blockRef);
 
@@ -137,14 +137,6 @@ bool Entity_Mario::Collision(void* blockRef, TileTypes type)
 			CancelJump();
 			_IsOnTheGround = false;
 			return true;
-		}
-
-		// Character is airborne 
-		else
-		{
-			_CanJump = false;
-			_IsOnTheGround = false;
-			return false;
 		}
 	}
 

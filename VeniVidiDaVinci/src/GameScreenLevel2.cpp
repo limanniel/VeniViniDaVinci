@@ -70,6 +70,7 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 			if (_mario->IsOnTheGround())
 				_mario->SetTriggered(true);
 		}
+	
 		// If block is pow tile
 		if (typeid(*_tiles[i]) == typeid(Tile_POW))
 		{
@@ -83,7 +84,7 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 					{
 						_koopas[i]->SetIfInjured(true);
 					}
-					
+
 					if (!_Screenshake)
 					{
 						DoScreenWobble();
@@ -94,6 +95,7 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 			else
 				_tiles.erase(_tiles.begin() + i);
 		}
+
 
 		// If block is coin tile
 		else if (typeid(*_tiles[i]) == typeid(Tile_Coin))
@@ -106,6 +108,7 @@ void GameScreenLevel2::Update(float deltaTime, SDL_Event event)
 			}
 		}
 
+		
 		for (unsigned int j = 0; j < _koopas.size(); j++)
 		{
 			if (!_koopas[j]->GetTriggered())

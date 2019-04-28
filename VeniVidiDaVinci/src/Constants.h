@@ -12,7 +12,7 @@
 
 //Jump Related Stuff
 #define JUMP_FORCE_DECREMENT 12.0f
-#define INITIAL_JUMP_FORCE 48.0f
+#define INITIAL_JUMP_FORCE 52.0f
 
 // Gravity
 #define INITIAL_GRAVITY_FORCE 0.05f
