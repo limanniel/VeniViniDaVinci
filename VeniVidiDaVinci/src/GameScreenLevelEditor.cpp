@@ -6,6 +6,8 @@
 GameScreenLevelEditor::GameScreenLevelEditor(SDL_Renderer* renderer)
 	: GameScreen(renderer)
 {
+	_bgTexture = new Texture2D(renderer);
+	_bgTexture->LoadFromFile("resources/Images/Backgrounds/1.png");
 	_HUD = new Texture2D(renderer);
 	_HUD->LoadFromFile("resources/Images/LevelEditor/LevelEditorHUD.png");
 
@@ -60,14 +62,18 @@ GameScreenLevelEditor::~GameScreenLevelEditor()
 	delete _HUDPlayLevel;
 	_HUDPlayLevel = nullptr;
 
+	delete _bgTexture;
+	_bgTexture = nullptr;
+
 	delete _levelMap;
 	_levelMap = nullptr;
 }
 
 void GameScreenLevelEditor::Render()
 {
-	float yPos = 0.0f;
+	_bgTexture->Render(Vector2D(0.0f, 0.0f), SDL_FLIP_NONE, 0.0f);
 
+	float yPos = 0.0f;
 	for (unsigned int i = 0; i < MAP_HEIGHT; i++)
 	{
 		float xPos = 0.0f;

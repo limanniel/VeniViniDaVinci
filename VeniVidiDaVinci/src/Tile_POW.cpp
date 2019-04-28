@@ -19,6 +19,10 @@ void Tile_POW::Render(float xOffset, float yOffset)
 	_texture->Render(partOfSpriteSheet, *_sourceRect, SDL_FLIP_NONE);
 }
 
+void Tile_POW::Update(float deltaTime)
+{
+}
+
 void Tile_POW::TakeAHit()
 {
 	_NumberOfHitsLeft--;

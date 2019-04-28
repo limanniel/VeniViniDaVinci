@@ -29,6 +29,7 @@ void Entity_Koopa::Update(float deltaTime, SDL_Event event)
 	if (!_IsInjured)
 	{
 		_yFrame = 0 * _singleSpriteHeight;
+		
 		if (_FacingDirection == FACING::LEFT)
 		{
 			_MovingLeft = true;
@@ -52,6 +53,7 @@ void Entity_Koopa::Update(float deltaTime, SDL_Event event)
 		if (_InjuredTime <= 0.0f)
 		{
 			_xFrame = 5 * _singleSpriteWidth;
+			_InjuredTime = 5000.0f;
 			FlipRightwayUp();
 		}
 		KnockedAnimation(deltaTime);

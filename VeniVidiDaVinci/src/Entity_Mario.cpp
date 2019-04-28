@@ -147,6 +147,21 @@ bool Entity_Mario::Collision(void* blockRef, TileTypes type)
 			return false;
 		}
 	}
+
+	else if (type == TileTypes::COIN)
+	{
+		auto BlockTile = static_cast<Tile_Coin*>(blockRef);
+
+		// Check if collided with coin
+		if (Collisions::Instance()->Box(*_SourceRect, *BlockTile->GetRect()))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
 
 void Entity_Mario::RunningAnimation(float deltaTime)

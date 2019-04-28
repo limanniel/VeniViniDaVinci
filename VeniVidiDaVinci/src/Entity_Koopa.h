@@ -21,5 +21,6 @@ public:
 	void Render() override;
 	void Update(float deltaTime, SDL_Event event) override;
 	bool Collision(void* blockRef, TileTypes type) override;
+	inline void SetIfInjured(bool state) { _IsInjured = state; }
 };
 

@@ -8,6 +8,7 @@ class Tile
 protected:
 	int _width, _height;
 	Texture2D* _texture;
+	int _xFrame{ 0 };
 	SDL_Rect* _sourceRect{ nullptr };
 
 
@@ -18,6 +19,7 @@ public:
 
 	virtual void Render(Vector2D position);
 	virtual void Render(float xOffset = 0.0f, float yOffset = 0.0f);
+	virtual void Update(float deltaTime);
 
 	inline SDL_Rect* GetRect() const { return _sourceRect; }
 };

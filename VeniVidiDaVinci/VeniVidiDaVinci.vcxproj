@@ -153,6 +153,7 @@
     <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\Texture2D.cpp" />
     <ClCompile Include="src\Tile.cpp" />
+    <ClCompile Include="src\Tile_Coin.cpp" />
     <ClCompile Include="src\Tile_POW.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +164,7 @@
     <Library Include="src\Libs\SDL\SDL2_ttf.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\Entity_Koopa.h" />
     <ClInclude Include="src\Entity_Mario.h" />
     <ClInclude Include="src\Entity.h" />
@@ -186,7 +188,11 @@
     <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\Texture2D.h" />
     <ClInclude Include="src\Tile.h" />
+    <ClInclude Include="src\Tile_Coin.h" />
     <ClInclude Include="src\Tile_POW.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VeniVidiDaVinci.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

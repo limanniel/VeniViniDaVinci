@@ -3,9 +3,10 @@
 #include <iostream>
 #include "Commons.h"
 #include "Constants.h"
+#include "Collisions.h"
 #include "Texture2D.h"
 #include "Tile_POW.h"
-#include "Collisions.h"
+#include "Tile_Coin.h"
 
 class Entity
 {

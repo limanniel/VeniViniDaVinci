@@ -53,12 +53,18 @@ Tile::~Tile()
 
 void Tile::Render(Vector2D position)
 {
-	_texture->Render(Vector2D(position.x, position.y), SDL_FLIP_NONE, 0.0f);
+	SDL_Rect tempRect = { (int)position.x, (int)position.y, 32, 32 };
+	SDL_Rect textRect = { 0, 0, 32, 32 };
+	_texture->Render(textRect, tempRect, SDL_FLIP_NONE, 0.0f);
 }
 
 void Tile::Render(float xOffset, float yOffset)
 {
 	Vector2D tempRect = { _sourceRect->x + xOffset, _sourceRect->y + yOffset};
 	_texture->Render(tempRect, SDL_FLIP_NONE, 0.0f);
+}
+
+void Tile::Update(float deltaTime)
+{
 }
 

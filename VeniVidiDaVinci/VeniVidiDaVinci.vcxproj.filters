@@ -108,6 +108,9 @@
     <ClCompile Include="src\Tile_POW.cpp">
       <Filter>Source Files\LevelEditor</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tile_Coin.cpp">
+      <Filter>Source Files\LevelEditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="src\Libs\SDL\SDL2.lib" />
@@ -189,5 +192,16 @@
     <ClInclude Include="src\Tile_POW.h">
       <Filter>Header Files\LevelEditor</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tile_Coin.h">
+      <Filter>Header Files\LevelEditor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VeniVidiDaVinci.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

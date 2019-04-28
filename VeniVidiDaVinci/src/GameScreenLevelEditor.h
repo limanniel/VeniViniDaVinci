@@ -7,10 +7,11 @@
 class GameScreenLevelEditor : public GameScreen
 {
 private:
-	Texture2D* _HUD;
+	Texture2D* _bgTexture{ nullptr };
+	Texture2D* _HUD{ nullptr };
 	Text* _HUDBlockName[LE_AMOUNTOFTYPEBLOCKS - 1];
-	Text* _HUDSaveMap;
-	Text* _HUDPlayLevel;
+	Text* _HUDSaveMap{ nullptr };
+	Text* _HUDPlayLevel{ nullptr };
 
 	Texture2D* _tilesTextures[LE_AMOUNTOFTYPEBLOCKS];
 	Tile* _tiles[LE_AMOUNTOFTYPEBLOCKS];
