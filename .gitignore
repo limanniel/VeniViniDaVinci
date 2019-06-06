@@ -4,3 +4,9 @@ Debug/
 
 # Files
 *.user
+
+# Exceptions
+!Debug/*.dll
+Debug/*.pdb
+Debug/*.exe
+Debug/*.ilk
