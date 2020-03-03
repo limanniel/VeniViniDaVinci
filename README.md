@@ -1,2 +1,2 @@
 # VeniViniDaVinci
-GEC Semester 2 Project
+Classic mario level editor created for "Games Engine Creation" module for my first year of degree
